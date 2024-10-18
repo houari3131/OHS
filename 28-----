@@ -105,61 +105,7 @@ if (window.location.href.includes("/GenerateCaptcha")) {
 
             return button;
         }
-      /////////////////////////////////////////////////
-         localStorage.PortNumber = localStorage.PortNumber || 1;
-       
-       
-       
-        if(localStorage.PortNumber == '1'){
-        localStorage.port = '4000';
-       
-        }else{
-        if(localStorage.PortNumber == '2'){
-        localStorage.port = '4001'
-          
-        }else{
-        
-        if(localStorage.PortNumber == '3'){
-        localStorage.port ='4002'
-        
-        }
-        
-        }
-        
-        }
-       var PortButton = createButton("Port " + localStorage.PortNumber, function() {
-           
-           if( localStorage.PortNumber == '1'){
-                localStorage.PortNumber ='2' 
-           localStorage.port = '4001'
-           PortButton.textContent = 'Port 2';
-               
-               
-           }else{
-           
-            if(localStorage.PortNumber == '2'){
-               localStorage.PortNumber ='3' 
-            localStorage.port = '4002'
-            PortButton.textContent = 'Port 3'
-            }else{
-            
-           if(localStorage.PortNumber == '3'){
-                localStorage.PortNumber ='1' 
-           localStorage.port = '4000'
-           PortButton.textContent = 'Port 1'
-           } 
-            
-            }
-           
-           
-           }
-        
-        }, ["#ff9999", "#ff6666"], 60);
-       
-        document.body.appendChild(PortButton);
-           
-        
-        
+    
         ////////////////////////////////////////////////////
         
         var OnOff = localStorage.OnOff || 'Off';
