@@ -1,3 +1,4 @@
+
 // Check if the current URL does not include "generate captcha"
 if (window.location.href.includes("/GenerateCaptcha")) {
 
@@ -105,9 +106,9 @@ if (window.location.href.includes("/GenerateCaptcha")) {
 
             return button;
         }
-    
-        ////////////////////////////////////////////////////
         
+        
+         
         var OnOff = localStorage.OnOff || 'Off';
         localStorage.OnOff = OnOff;
   var loginButton = createButton("Login " + OnOff, function() {
@@ -759,13 +760,9 @@ downloadFile();
             OnLogoutSubmit();
         }, ["#ff9999", "#ff6666"], 610);
         document.body.appendChild(LogOutButton);
-        // Set initial color based on the current version
-        if (VersionType === "New") {
-            ForbesVerion.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Green for New Version
-        }
 
-        document.body.appendChild(ForbesVerion);
-
+        
+      
         // Create the config menu
         const configMenu = document.createElement('div');
         configMenu.style.position = 'fixed';
@@ -785,7 +782,7 @@ downloadFile();
 
         // Create and add checkboxes to the config menu
         const options = [
-          'Auto Refresh',
+            'Auto Refresh',
             'Random Refresh',
             'Successive Refresh',
             'Auto Submit Response Selfie Code',
@@ -821,7 +818,6 @@ downloadFile();
                             localStorage.setItem('Random Refresh', 'false');
                             document.getElementById('Random Refresh').checked = false;
                         }
-                        
                     } else {
                         if (option === 'Random Refresh') {
                             localStorage.setItem('Successive Refresh', 'true');
@@ -846,7 +842,7 @@ downloadFile();
         const submitButton = document.createElement('button');
         submitButton.innerText = 'Submit';
         submitButton.style.padding = "10px 20px";
-        submitButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)";
+        submitButton.style.background = `linear-gradient(to bottom, #99ff99, #66ff66)`;
         submitButton.style.color = "white";
         submitButton.style.border = "none";
         submitButton.style.cursor = "pointer";
@@ -942,7 +938,7 @@ downloadFile();
             clearButton.innerText = 'Clear';
             clearButton.style.marginLeft = '10px';
             clearButton.style.padding = '5px 10px';
-            clearButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
+            clearButton.style.background = `linear-gradient(to bottom, #ff9999, #ff6666)`;
             clearButton.style.color = 'white';
             clearButton.style.border = 'none';
             clearButton.style.cursor = 'pointer';
@@ -975,7 +971,7 @@ downloadFile();
         const saveButton = document.createElement('button');
         saveButton.innerText = 'Save';
         saveButton.style.padding = '10px 20px';
-        saveButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)";
+        saveButton.style.background = `linear-gradient(to bottom, #99ff99, #66ff66)`;
         saveButton.style.color = 'white';
         saveButton.style.border = 'none';
         saveButton.style.cursor = 'pointer';
@@ -988,7 +984,7 @@ downloadFile();
         const exitButton = document.createElement('button');
         exitButton.innerText = 'Exit';
         exitButton.style.padding = '10px 20px';
-        exitButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
+        exitButton.style.background = `linear-gradient(to bottom, #ff9999, #ff6666)`;
         exitButton.style.color = 'white';
         exitButton.style.border = 'none';
         exitButton.style.cursor = 'pointer';
@@ -1001,3 +997,8 @@ downloadFile();
         datePickerMenu.appendChild(buttonContainer);
     }
 }
+
+
+
+
+
