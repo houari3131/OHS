@@ -1,0 +1,89 @@
+
+if(localStorage.autoLogin=='true'){
+
+'use strict'
+
+/* global $ */
+
+// Helpers
+
+const _ = {
+    domReady: () => new Promise(resolve => {
+        document.readyState === 'loading'
+            ? document.addEventListener('DOMContentLoaded', resolve, { once: true })
+            : resolve()
+    }),
+
+    nextTick: cb => cb ? setTimeout(cb) : new Promise(r => setTimeout(r)),
+}
+
+// Monkeys
+
+async function LoginMonkey () {
+    await _.domReady()
+
+    $('#div-main > .container > .row > [class^=col-]:not(:has(*))').remove()
+    $('#div-main > .container > .row > :only-child').addClass('mx-auto')
+
+    _.nextTick(() => $('.entry-disabled').off('copy paste'))
+
+    $('#ReturnUrl').val($('a[href^="/MAR/bls/vtv"i]').attr('href'))
+
+    const email = localStorage.getItem('email');
+    const password = localStorage.getItem('password');
+
+    if (!email) {
+        console.log('Email is empty in local storage. Login not attempted.');
+        return;
+    }
+
+    setTimeout(() => {
+        $(':text:visible').val(email)
+        $(':password:visible').val(password)
+        if(localStorage.autoLogin == 'true'){
+        $('#btnVerify').trigger('click')
+        }
+    }, 2000); // انتظار 2 ثانية قبل تعبئة نموذج تسجيل الدخول والنقر على الزر
+}
+
+async function LoginCaptchaMonkey () {
+    await _.domReady()
+
+    $('.captcha-div').siblings().remove()
+    $('.captcha-div').addClass('mx-auto')
+
+    _.nextTick(() => $('.entry-disabled').off('copy paste'))
+
+    $(`<strong class="position-absolute h5 text-black"
+               style="
+                      top: 50%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                      cursor: pointer;
+                      z-index: 10000;">Click to Close</strong>`)
+  //      .appendTo('#global-overlay').on('click', unsafeWindow.HideLoader)
+
+    const password = localStorage.getItem('password');
+    $(':password:visible').val(password)
+
+    console.log('Submit button clicked after filling password.')
+}
+
+// Main
+
+const { pathname } = location
+switch (true) {
+    case RegExp('^/MAR/account/login/?$', 'i').test(pathname):
+        LoginMonkey()
+        break
+
+    case RegExp('^/MAR/newcaptcha/logincaptcha/?$', 'i').test(pathname):
+        LoginCaptchaMonkey()
+        break
+
+    case RegExp('^/MAR/bls/vtv\\d+/?$', 'i').test(pathname):
+       
+        break
+}
+
+}

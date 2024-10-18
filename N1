@@ -1,0 +1,69 @@
+
+if(window.location.href.includes('/MAR/NewCaptcha/LoginCaptcha') || window.location.href.includes('MAR/newcaptcha/logincaptcha') ){
+
+}else{
+  const applicants = [
+    {
+
+      mail: localStorage.email,
+      password: localStorage.password, 
+    },
+  ];
+var AutoLogin = localStorage.getItem('Auto Login');
+const autoSubmitForms = {
+   login: localStorage.autoLogin,
+   autologin : AutoLogin,
+  loginCaptcha: localStorage.captchaautosolve,
+  appointmentCaptcha: localStorage.captchaautosolve,
+  visaType: 'on',
+  slotSelection: 'on',
+  applicantSelection: 'on',
+}
+
+
+ 
+
+
+
+
+
+  function removeRandomnessFromUi () {
+    // Center main content
+    $('#div-main > .container > .row > [class^=col-]').hide()
+    $('#div-main > .container > .row > :has(form)').addClass('mx-auto')
+
+    // Remove random top padding
+    $(':has(> form)').removeAttr('class')
+  }
+
+  function enableCopyPasteInInputs () { $('.entry-disabled:visible').on('copy paste', evt => evt.stopImmediatePropagation()) }
+
+  function setReturnUrl () { $('#ReturnUrl').val($('.new-app-active').attr('href')) }
+
+
+  function fillForm () {
+    const selectedMail = applicants[0].mail
+   // const applicant = applicants.find(({ mail }) => mail === selectedMail)
+
+    $(':text[name]:visible').val(selectedMail)
+
+   // applicant?.profilePhotoId && $('#_profilePhoto').attr('src', `/MAR/query/getfile?fileid=${applicant.profilePhotoId}`)
+   ;/on|true/.test(autoSubmitForms?.login) && /on|true/.test(autoSubmitForms?.autologin) &&   $('#btnVerify').trigger('click')
+  }
+
+
+
+ function start() {
+
+   removeRandomnessFromUi();
+   enableCopyPasteInInputs();
+    setReturnUrl();
+
+    fillForm();
+
+    }
+
+
+ start();
+
+}

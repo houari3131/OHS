@@ -1,0 +1,16 @@
+                            
+document.querySelector("#TravelDate").value="2024-11-20"
+document.querySelector("#IntendedDateOfArrival").value='2024-11-20'
+document.querySelector("#IntendedDateOfDeparture").value="2024-11-28"
+document.getElementsByClassName('rdo-applicant')[0].click()
+
+var submit = setInterval(function(){
+
+if(document.querySelector("#TravelDate").value!== ''&& document.querySelector("#IntendedDateOfArrival").value !== '' 
+   && document.querySelector("#IntendedDateOfDeparture").value !=='' && $("#ApplicantPhotoId").val() !== ''&& document.querySelector("#EmailCode").value == '6'){
+    
+$('#btnSubmit').click()
+    clearInterval(submit);
+   }
+
+},50)

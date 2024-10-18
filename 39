@@ -1,0 +1,5 @@
+setTimeout(function(){
+document.querySelector("#termsmodal > div > div > div.modal-footer > button.btn.btn-primary").click()
+
+},1000)
+

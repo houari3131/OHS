@@ -1,0 +1,189 @@
+if (location.href.indexOf("SlotSelection") !== -1) {
+    function findVisibleDatePicker() {
+        const datePickers = document.querySelectorAll('input[data-role="datepicker"]');
+        for (let picker of datePickers) {
+            const pickerDiv = picker.closest('div');
+            if (pickerDiv && window.getComputedStyle(pickerDiv).display !== 'none') {
+                return picker.id;
+            }
+        }
+        return null;
+    }
+
+    function findVisibleTimeSlot() {
+        const timeSlots = document.querySelectorAll('input[data-role="dropdownlist"]');
+        for (let slot of timeSlots) {
+            const slotDiv = slot.closest('div');
+            if (slotDiv && window.getComputedStyle(slotDiv).display !== 'none') {
+                return slot.id;
+            }
+        }
+        return null;
+    }
+
+    function identifyVisibleElements() {
+        return {
+            datePicker: findVisibleDatePicker(),
+            timeSlot: findVisibleTimeSlot()
+        };
+    }
+
+
+    let dateinput;
+    let timeslotinput;
+
+    const visibleElements = identifyVisibleElements();
+    dateinput = visibleElements.datePicker;
+    timeslotinput = visibleElements.timeSlot;
+
+
+    // Function to get the RequestVerificationToken from the page
+    function getRequestVerificationToken() {
+        const tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
+        return tokenInput ? tokenInput.value : null;
+    }
+
+    function extractDataParameter(referer) {
+        const url = new URL(referer);
+        const dataParam = url.searchParams.get('data');
+        return dataParam ? encodeURIComponent(dataParam) : null;
+    }
+
+
+    function getRandomAvailableDate(availableDates) {
+        const validDates = availableDates.filter(date => date.AppointmentDateType === 0);
+        if (validDates.length === 0) return null;
+        const randomIndex = Math.floor(Math.random() * validDates.length);
+        return validDates[randomIndex] || null;
+    }
+
+    function getRandomTimeSlot(timeSlots) {
+        if (timeSlots.length === 0) {
+            console.error('No time slots available.');
+            return null;
+        }
+        const randomIndex = Math.floor(Math.random() * timeSlots.length);
+        return timeSlots[randomIndex];
+    }
+
+    const referer = window.location.href;
+    console.log("ref:",referer)
+
+    const data = extractDataParameter(referer);
+    if (!data) {
+        console.error('Data parameter not found in Referer URL.');
+        return;
+    }
+
+    const availableDates = availDates.ad.filter(date => date.AppointmentDateType === 0);
+    const randomDate = getRandomAvailableDate(availableDates);
+    if (!randomDate) {
+        alert('No available dates found.');
+        return false
+    }
+    else {
+        $(`#${dateinput}`).val(randomDate.DateText);
+    }
+
+    const url = `https://www.blsspainmorocco.net/MAR/appointment/GetAvailableSlotsByDate?data=${data}&appointmentDate=${randomDate.DateText}`;
+    console.log(url);
+
+    const requestVerificationToken = getRequestVerificationToken();
+    if (!requestVerificationToken) {
+        console.error('RequestVerificationToken not found.');
+        return;
+    }
+    console.log(requestVerificationToken);
+
+    const headers = {
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Referer': referer,
+        'RequestVerificationToken': requestVerificationToken
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({})
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Success:', data);
+
+            // Extract and log available time slots
+            const availableSlots = data.data.filter(slot => slot.Count > 0);
+            if (availableSlots.length > 0) {
+                console.log('Available time slots:', availableSlots.map(slot => slot.Name));
+                const randomTimeSlot = getRandomTimeSlot(availableSlots);
+                console.log('Selected Time Slot:', randomTimeSlot);
+                $(`#${timeslotinput}`).val(randomTimeSlot.Id);
+                $("#btnSubmit").click();
+
+            } else {
+                console.log('No available time slots.');
+                alert('No available time slots.');
+            }
+        } else {
+            console.error('HTTP error!', response.status);
+            alert('error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+        function sendMessage1(text) {
+        var temsg=  "BLS ON MAROC   :"+text;
+        const msg = encodeURIComponent(temsg +" ON")
+
+          fetch('https://api.telegram.org/bot7670084469:AAESrySKO55jPIrG4YwVmstgOHNMbCjtpHI/sendMessage?chat_id=-1002182656332&text='+msg);
+        }
+
+
+    function sendMessage2(text) {
+        var temsg=  "BLS ON MAROC   :"+"\n"+text;
+        const msg = encodeURIComponent(temsg +" ON")
+
+          fetch('https://api.telegram.org/bot7670084469:AAESrySKO55jPIrG4YwVmstgOHNMbCjtpHI/sendMessage?chat_id=-1002186788637&text='+msg);
+        }
+
+//----------------------------------------------------------------
+
+function notify()
+{
+    var categoryIdfff = localStorage.CatValueNotify
+    var locationIdfff =  localStorage.LocValueNotify
+    var visasubTypeff = localStorage.VisaSubTypeValueNotify
+    var data = availDates;
+   var  allowedDatesx = data.ad;
+   if (allowedDatesx !== null && allowedDatesx.length > 0) {
+                    const available = allowedDatesx.filter(x => x.AppointmentDateType === 0);
+                    if (available === null || available.length<1)
+                    {
+                      appDatex.enable(true);
+                     // datevide=true;
+                        return false;
+                    }
+                var teeBoot ="";
+                var dateArr=[];
+                var dateArr2;
+                $.each(available, function (index, value) {
+                    dateArr.push(value.DateText);
+                     dateArr2 = value.DateText;
+                     teeBoot=teeBoot+" "+value.DateText;
+                });
+                ShowError(teeBoot);
+
+                      sendMessage1(locationIdfff+ "\n" + categoryIdfff + "\n"+ visasubTypeff + "\n" +teeBoot);
+                sendMessage2(locationIdfff+ "\n" + categoryIdfff + "\n"+ visasubTypeff + "\n" +teeBoot);
+
+
+
+    }
+
+}
+notify();
+
+}

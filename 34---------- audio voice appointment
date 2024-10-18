@@ -1,0 +1,99 @@
+// Replace the URL with your audio file's correct URL on Hostinger
+var HappyAudio = new Audio('https://houarimed.tech/audio/yeshappy.ogg.mp3');
+var AppointementType;
+
+if(localStorage.LocValueNotify == 'Casablanca'){
+    
+if(localStorage.VisaSubTypeValueNotify == 'Casa 1'){
+    
+    AppointementType = 'ForbesCasa1Schengen.mp3';
+}
+    if(localStorage.VisaSubTypeValueNotify == 'Casa 2'){
+    AppointementType = 'ForbesCasa2Schengen.mp3';
+    }
+    if(localStorage.VisaSubTypeValueNotify == 'Casa 3'){
+    
+    AppointementType = 'ForbesCasa3Schengen.mp3';
+    }
+     if(localStorage.VisaSubTypeValueNotify == 'Family Reunification Visa'){
+         
+    AppointementType = 'ForbesRegroupementFamilliale.mp3';
+    
+    }
+     if(localStorage.VisaSubTypeValueNotify == 'National'){
+         
+    AppointementType = 'ForbesCasaNational.mp3';
+    
+    }
+     if(localStorage.VisaSubTypeValueNotify == 'Student Visa'){
+         
+    AppointementType = 'ForbesEtude.mp3';
+    
+    }
+      if(localStorage.VisaSubTypeValueNotify == 'Work Visa'){
+         
+    AppointementType = 'ForbesWorkVisaCasa.mp3';
+    
+    }
+
+
+}
+
+if(localStorage.LocValueNotify == 'Rabat'){
+
+    
+    if(localStorage.VisaSubTypeValueNotify == 'Students - Language/selectivity' || localStorage.VisaSubTypeValueNotify == 'Students - Non-tertiary studies' || localStorage.VisaSubTypeValueNotify == 'Students - Graduate studies' || localStorage.VisaSubTypeValueNotify == 'Student - Others'){
+    
+     AppointementType = 'ForbesRabatNational.mp3';
+    }
+    
+    if(localStorage.VisaSubTypeValueNotify == 'Schengen Visa'){
+      AppointementType = 'ForbesRabatSchengen.mp3';
+    }
+
+
+}
+
+
+if(localStorage.LocValueNotify == 'Agadir'){
+  AppointementType = 'ForbesAgadirSchengen.mp3';
+}
+if(localStorage.LocValueNotify == 'Nador'){
+  AppointementType = 'ForbesNadorSchengen.mp3';
+}
+if(localStorage.LocValueNotify == 'Tangier'){
+      AppointementType = 'ForbesTangierSchengen.mp3';
+}
+if(localStorage.LocValueNotify == 'Tetouan'){
+  AppointementType = 'ForbesTetouanSchengen.mp3';
+}
+var RendezVsAudio = new Audio('https://houarimed.tech/audio/' + AppointementType);
+// Function to play the audio
+function PlayHappyAudio() {
+    HappyAudio.play().catch(function(error) {
+        console.error("Error playing audio:", error);
+    });
+}
+function PlayAppointmentAudio() {
+    RendezVsAudio.play().catch(function(error) {
+        console.error("Error playing audio:", error);
+    });
+}
+
+// Function to stop the audio
+function StopHappyAudio() {
+    HappyAudio.pause();
+    HappyAudio.currentTime = 0;  // Reset audio to the beginning
+}
+// Function to stop the audio
+function StopAppointmentAudio() {
+    RendezVsAudio.pause();
+    RendezVsAudio.currentTime = 0;  // Reset audio to the beginning
+}
+
+PlayAppointmentAudio();
+// Call the function to play the audio
+PlayHappyAudio();
+
+
+

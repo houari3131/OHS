@@ -1,0 +1,101 @@
+setInterval(function() {
+    var CategoryId,
+        LocationId,
+        VisaTypeId,
+        VisaSubTypeId,
+        IndivId,
+        FamilyId,
+        IndivElmnt,
+        FamilyElmnt;
+
+    function extractIdsFromText(text) {
+        // Regular expression to match the pattern: $("#<id>")
+        const regex = /\$\("#(\w+)"\)/g;
+        let ids = [];
+        let match;
+        while ((match = regex.exec(text)) !== null) {
+            ids.push(match[1]);
+        }
+        return ids;
+    }
+
+    const fnct = OnSubmitVisaType.toString();
+    var IdArray = extractIdsFromText(fnct);
+
+    // Modify IdArray if the id starts with 'an'
+    for (let i = 0; i < IdArray.length; i++) {
+        if (IdArray[i].startsWith('an')) {
+            IdArray[i] = IdArray[i].slice(2);
+        }
+    }
+
+    for (let i = 0; i < 25; i++) {
+        if ($("#" + IdArray[i] + '_label').is(":visible")) {
+            const labelText = document.querySelector("#" + IdArray[i] + "_label").textContent;
+            if (labelText === 'Category*') {
+                CategoryId = IdArray[i];
+            }
+            if (labelText === 'Location*') {
+                LocationId = IdArray[i];
+            }
+            if (labelText === 'Visa Type*') {
+                VisaTypeId = IdArray[i];
+            }
+            if (labelText === 'Visa Sub Type*') {
+                VisaSubTypeId = IdArray[i];
+            }
+        }
+    }
+
+    for (let i = 0; i < IdArray.length; i++) {
+        if ($("#self" + IdArray[i]).is(":visible")) {
+            IndivId = IdArray[i];
+            IndivElmnt = $("#self" + IdArray[i]);
+        }
+        if ($("#family" + IdArray[i]).is(":visible")) {
+            FamilyId = IdArray[i];
+            FamilyElmnt = $("#family" + IdArray[i]);
+        }
+    }
+
+    // Function to get and store value based on the id
+    function storeValue(supId, localStorageKey) {
+        const elementSup = document.querySelector(`[aria-owns="${supId}_listbox"]`);
+        if (elementSup) {
+            const ariaActiveDescendant = elementSup.getAttribute('aria-activedescendant');
+            if (ariaActiveDescendant) {
+                const element = document.getElementById(ariaActiveDescendant);
+                if (element) {
+                    const value = element.textContent;
+                    localStorage[localStorageKey] = value;
+                    console.log(`${localStorageKey}: ${value}`);
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+if(localStorage.getItem('isEnabled') == 'false'){
+  // Store the values in localStorage
+    storeValue(CategoryId, 'CatValueNotify');
+    storeValue(LocationId, 'LocValueNotify');
+    storeValue(VisaSubTypeId, 'VisaSubTypeValueNotify');
+}else{
+  
+
+    var category = localStorage.category
+    var location = localStorage.location
+    var visaSubtype = localStorage.visaSubtype
+    // Store the values in localStorage
+    localStorage.CatValueNotify = category
+    localStorage.LocValueNotify = location
+   localStorage.VisaSubTypeValueNotify = visaSubtype
+
+
+
+
+}
+    
+}, 50);

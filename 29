@@ -1,0 +1,20 @@
+ var OnAgree = setInterval(function(){
+
+if(document.querySelector("#progress-percent").textContent == '25%'){
+
+function SendMessage(text){
+
+
+    var temsg = "📌 BLS MAROC 25 % :" + text;
+    const msg = encodeURIComponent(temsg + " ON");
+
+    fetch('https://api.telegram.org/bot7313056674:AAEIivyB_ADYOQwDDT6Mx_dJBJOQjq0Fe9s/sendMessage?chat_id=-1002169621038&text=' + msg + '&parse_mode=Markdown');
+
+}
+    var formattedMessage = `\n City: ${localStorage.location}\n Category: ${localStorage.category}\n Type: ${localStorage.visaSubtype}\n ${localStorage.UserID}`;
+SendMessage(formattedMessage);
+clearInterval(OnAgree)
+}
+
+ 
+ },500);

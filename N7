@@ -1,0 +1,126 @@
+
+if(localStorage.noti == 'OK'){
+function notify()
+{
+   
+    var categoryIdfff; 
+    var locationIdfff; 
+    var visasubTypeff; 
+        if(localStorage.getItem('isEnabled') == 'true'){ 
+        
+             categoryIdfff = localStorage.category
+     locationIdfff = localStorage.location
+     visasubTypeff = localStorage.visaSubtype
+        
+        }else{
+           categoryIdfff = localStorage.CatValueNotify
+     locationIdfff = localStorage.LocValueNotify
+     visasubTypeff = localStorage.VisaSubTypeValueNotify
+        
+        }
+        
+    var data = availDates;
+   var  allowedDatesx = data.ad;
+   if (allowedDatesx !== null && allowedDatesx.length > 0) {
+                    const available = allowedDatesx.filter(x => x.AppointmentDateType === 0);
+                    if (available === null || available.length<1)
+                    {
+                      appDatex.enable(true);
+                     // datevide=true;
+                        return false;
+                    }
+                var teeBoot ="";
+                var dateArr=[];
+                var dateArr2;
+                $.each(available, function (index, value) {
+                    dateArr.push(value.DateText);
+                     dateArr2 = value.DateText;
+                     teeBoot=teeBoot+" "+value.DateText;
+                });
+                ShowError(teeBoot);
+
+                      var message = locationIdfff+ "\n" + categoryIdfff + "\n"+ visasubTypeff + "\n" +teeBoot
+                
+  
+ 
+    
+  
+
+    // دالة لتوليد HMAC باستخدام SHA-256
+    function hmacSHA256(secret, message) {
+        const encoder = new TextEncoder();
+        const keyData = encoder.encode(secret);
+        const messageData = encoder.encode(message);
+
+        return crypto.subtle.importKey(
+            'raw',
+            keyData,
+            { name: 'HMAC', hash: { name: 'SHA-256' } },
+            false,
+            ['sign']
+        ).then(key => {
+            return crypto.subtle.sign('HMAC', key, messageData);
+        }).then(signature => {
+            return btoa(String.fromCharCode(...new Uint8Array(signature))); // تحويل النتيجة إلى Base64
+        });
+    }
+
+    // توليد Nonce فريد لكل طلب (عشوائي)
+    function generateNonce() {
+        return Math.random().toString(36).substr(2, 9);  // توليد رمز عشوائي
+    }
+
+    // المفتاح السري المشترك
+    const secretKey = "forbes31";
+
+    // الرسالة الأصلية
+   
+
+    // توليد Nonce
+    const nonce = generateNonce();
+
+    // دمج الرسالة مع الـ Nonce لتوليد HMAC
+    const dataToSign = message + nonce;
+if(localStorage.noti == 'OK'){
+    // توليد HMAC بناءً على الرسالة والـ Nonce
+    hmacSHA256(secretKey, dataToSign).then(hmac => {
+        fetch("https://houarimed.tech/forbes/sendMessage.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                message: message,  // إرسال الرسالة كما هي
+                hmac: hmac,  // إرسال HMAC للتحقق من صحة الرسالة
+                nonce: nonce  // إرسال الـ Nonce للتحقق من الفريدة
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to send message, status: ' + response.status);
+            }
+            return response.text();
+        })
+        .then(data => {
+          console.log("Message sent successfully:", data);
+        })
+        .catch(error => {
+          console.error("Error sending message:", error);
+        });
+    });
+}
+
+    
+    
+
+
+    }
+
+    
+  
+    
+    
+    
+}
+notify();
+}

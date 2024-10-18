@@ -1,0 +1,142 @@
+//Get the Appointment date and slot
+var slo;
+var ttt;
+for (let i = 1; i <= 20; i++) {
+    const elementId = 'AppointmentDate' + i ;
+    const element = $('#' + elementId);
+    if (element.is(':visible')) {
+   slo=elementId;
+console.log(slo);
+}}
+      var ids = ['AppointmentSlot1', 'AppointmentSlot2', 'AppointmentSlot3', 'AppointmentSlot4', 'AppointmentSlot5'];
+  ids.forEach(function(id) {
+      var element = $(".k-widget.k-dropdown.form-control[aria-owns='" + id + "_listbox']");
+    if (element.is(":visible")) {
+ ttt = "AppointmentSlot" + id.slice(15);}
+    console.log(ttt);});
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+var timm = setInterval(SlotChoose, 300);
+var tim = setInterval(SlotChoose, 100);
+
+ function DateChoose(date) {
+     $(`#${slo}`).click()
+      var all = document.getElementById('DateCss').textContent;
+                var dd = all.indexOf("{background-color: var(--bs-success)");
+                var touii = all.slice(0, dd);
+                const regex = /data-value="(\d{4}\/\d{1,2}\/\d{1,2})"/g;
+                var libre = [];
+                let match;
+                while (match = regex.exec(touii)) {libre.push(match[1]);}
+     
+         $(".k-icon.k-i-arrow-60-right").click();
+var count =libre.length;
+     
+$(`.k-calendar-view a[data-value="${libre[date]}"]`).click(); }
+
+
+     
+     
+     
+     
+    
+         function SlotChoose(){
+            if ($(`#${slo}`).val() !== '') {
+                  $(`#${ttt}`).click();
+                   clearInterval(timm);
+
+
+                   if($(".slot-item.bg-success").length >= 1){
+                       clearInterval(tim);
+                  $(".slot-item.bg-success").last().click();
+                   clearInterval(tim);clearInterval(timm);
+                   }}
+         }
+         
+
+
+         $(document).ready(function() {
+ $("#"+slo).change(function() {
+
+ setTimeout(() => {
+ SlotChoose();
+         }, 200);
+
+    setTimeout(() => {
+ $('#btnSubmit').click()
+
+}, 400);
+
+
+ });
+});
+
+     function GetDate(date){ 
+         DateChoose(date);
+
+
+     setTimeout(() => {
+$('#btnSubmit').click()
+     }, 700);
+ }
+
+
+
+     function checkvisibility(x){
+         
+       GetDate(x)  
+    var all = document.getElementById('DateCss').textContent;
+                var dd = all.indexOf("{background-color: var(--bs-success)");
+                var touii = all.slice(0, dd);
+                const regex = /data-value="(\d{4}\/\d{1,2}\/\d{1,2})"/g;
+                var libre = [];
+                let match;
+                while (match = regex.exec(touii)) {libre.push(match[1]);}
+     var count =libre.length;
+    
+ 
+         
+           
+ // Select the element
+    var element = document.querySelector(".validation-summary.mb-3.alert.alert-danger.validation-summary-valid");
+
+    // Check if the element is visible
+    var isVisible = window.getComputedStyle(element).display !== "none";
+
+    // Check if the element contains the specified text
+    var containsText = element.textContent.includes("The appointment date and slot you selected is already booked by some other person. Please select another available slot and continue");
+ var containsText1=element.textContent.includes("Invalid captcha or email is not verified");
+   // Log the result to the console
+         
+           setTimeout(() => {
+    if ((isVisible && containsText) || (isVisible && containsText1)) {
+    if(x < count){
+        checkvisibility(x+1)}
+    } else {
+       console.log('You got a Date');
+      
+    }
+    }, 3000) 
+    }
+     
+       setTimeout(() => {     
+ // Select the element
+    var element = document.querySelector(".validation-summary.mb-3.alert.alert-danger.validation-summary-valid");
+
+    // Check if the element is visible
+    var isVisible = window.getComputedStyle(element).display !== "none";
+
+    // Check if the element contains the specified text
+    var containsText = element.textContent.includes("The appointment date and slot you selected is already booked by some other person. Please select another available slot and continue");
+ var containsText1=element.textContent.includes("Invalid captcha or email is not verified");
+   // Log the result to the console
+         
+        
+    if ((isVisible && containsText) || (isVisible && containsText1)) {
+   
+        checkvisibility(0)}else{
+       console.log('You got a Date');
+      
+    }
+    }, 5000) 

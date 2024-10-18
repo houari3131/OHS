@@ -1,0 +1,139 @@
+if(localStorage.CaptchaType == 'Apikey' && localStorage.getItem('Captcha Visa Type Auto Solve') == 'true' && localStorage.captchaautosolve == 'true' ){
+
+
+    console.log('Tampermonkey script is running');
+
+    function loadCryptoJS(callback) {
+        var script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js';
+        script.onload = callback;
+        document.head.appendChild(script);
+    }
+ window.alert = function() {};
+    function waitForElement(selector, callback) {
+        const element = document.querySelector(selector);
+        if (element) {
+            callback();
+        } else {
+            setTimeout(() => waitForElement(selector, callback), 500); // Retry after 500ms
+        }
+    }
+
+    function solveCaptcha() {
+        console.log("solveCaptcha function started.");
+
+        // Retrieve and decrypt the value from localStorage
+        const storedEncryptedValue = localStorage.getItem('CaptchaApikey');
+        const decryptedValue = CryptoJS.AES.decrypt(storedEncryptedValue, 'secret-passphrase').toString(CryptoJS.enc.Utf8);
+       // console.log('Decrypted Captcha API key:', decryptedValue);
+       //   const captchaApikey = decryptedValue;
+        const captchaApikey = localStorage.Apikey;
+
+        const captcha = {
+            enabled: 'true',
+            apiKey: captchaApikey,
+        };
+
+        const autoSubmitForms = {
+            login: localStorage.autoLogin,
+            loginCaptcha: localStorage.captchaautosolve,
+            appointmentCaptcha: localStorage.captchaautosolve,
+            visaType: 'on',
+            slotSelection: 'on',
+            applicantSelection: 'on',
+        };
+
+        function removeRandomnessFromUi() {
+            // Center main content
+            $('.row:has(> .captcha-div) > [class^=col-]').hide();
+            $('.captcha-div').addClass('mx-auto');
+        }
+
+        function getCaptchaTarget() {
+            return $('.box-label')
+                .sort((a, b) => getComputedStyle(b).zIndex - getComputedStyle(a).zIndex)
+                .first()
+                .text()
+                .replace(/\D+/, '');
+        }
+
+        function getCaptchaGrid() {
+            // From top-to-bottom and left-to-right
+            return $(':has(> .captcha-img):visible').get()
+                .reduce((acc, cur) => {
+                    (acc[Math.floor(cur.offsetTop)] ??= []).push(cur);
+                    return acc;
+                }, [])
+                .flatMap(sortedByTop => {
+                    const sortedByZIndex = sortedByTop.sort((a, b) => getComputedStyle(b).zIndex - getComputedStyle(a).zIndex);
+                    const top3 = sortedByZIndex.slice(0, 3); // max cells
+                    const sortedByLeft = top3.sort((a, b) => a.offsetLeft - b.offsetLeft);
+                    return sortedByLeft;
+                })
+                .map(element => element.firstElementChild);
+        }
+
+        function onSuccess(result) {
+            if (result.status === 'solved') {
+                console.log('Captcha solved:', result.solution);
+                const target = getCaptchaTarget();
+                const grid = getCaptchaGrid();
+                Object.entries(result.solution).forEach(([index, value]) => value === target && grid[index].click());
+                if (/on|true/.test(autoSubmitForms.appointmentCaptcha)) {
+                    $('#btnVerify').trigger('click');
+                }
+            } else {
+                onError('captchaerror', result);
+            }
+        }
+
+        function onError(type, data) {
+            console.error(type, data);
+            $('.validation-summary-valid').html('<b>Failed to solve captcha.</b>');
+        }
+
+        function solve() {
+            console.log('Attempting to solve captcha...');
+            const grid = getCaptchaGrid();
+            $.post({
+                url: 'https://pro.nocaptchaai.com/solve',
+                headers: { apiKey: captcha.apiKey },
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify({
+                    method: 'ocr',
+                    id: 'morocco',
+                    images: Object.fromEntries(grid.map(img => [img.src, img.src])),
+                }),
+                timeout: 30000, // 30 seconds timeout
+                complete(xhr, state) {
+                    switch (state) {
+                        case 'success':
+                            onSuccess(xhr.responseJSON);
+                            break;
+                        case 'error':
+                        case 'parsererror':
+                            onError(state, xhr);
+                            break;
+                    }
+                },
+            });
+        }
+
+        removeRandomnessFromUi();
+        waitForElement('.box-label', () => {
+            if (localStorage.captchaautosolve === 'true' && localStorage.getItem('Captcha Visa Type Auto Solve') === 'true') {
+                solve();
+            }
+        });
+    }
+
+    function start() {
+        console.log('Starting script...');
+        loadCryptoJS(solveCaptcha);
+    }
+
+    // Run the script
+    start();
+
+}

@@ -1,0 +1,185 @@
+// ==UserScript==
+// @name        BLS Spain Morocco Visa Type Bot
+// @version     1.0.0
+// @description Automates the visa type selection process on BLS Spain Morocco website.
+// @match      https://www.blsspainmorocco.net/MAR/Appointment/VisaType?data*
+// @grant       unsafeWindow
+// @run-at      document-end
+// ==/UserScript==
+
+
+
+(function() {
+    'use strict';
+
+  const autoSubmitForms = {
+  login: localStorage.autoLogin,
+  loginCaptcha: localStorage.captchaautosolve,
+  appointmentCaptcha: localStorage.captchaautosolve,
+  visaType: localStorage.isEnabled,
+  slotSelection: 'on',
+  applicantSelection: 'on',
+}
+
+const applicants = [
+  {
+    name: 'teste',
+    mail: localStorage.email,
+    password: localStorage.password,
+    profilePhotoId: localStorage.photoId,
+    applicantCount: localStorage.familyOfMembers,
+    category: localStorage.category, // n | normal, pm | premium, pt | primetime
+    location: localStorage.location,
+    visa: localStorage.visaSubtype, // sch, std, famr, nat, work, c1, c2, c3
+  },
+]
+const global = typeof unsafeWindow !== 'undefined' ? unsafeWindow : window;
+
+
+class VisaTypeBot {
+  #applicant
+
+  start () {
+    console.log(`${this.constructor.name} started`)
+
+    this.#applicant = this.#getActiveApplicant()
+    this.#fillForm()
+
+    $(() => {
+      // Show selected value in dropdowns
+      ;['Category', 'Location', 'Visa Type', 'Visa Sub Type'].forEach(label => {
+        const ddl = $(`.form-label:visible:contains(${label}) + .k-widget > :text`)
+          .data('kendoDropDownList')
+        ddl.value(ddl.value())
+      })
+
+      // Remove randomness from UI
+      // Center main content
+      $('#div-main > div:is(:first-child, :last-child)')
+          .removeClass()
+          .hide()
+      $('#div-main > :has(form)').addClass('mx-auto')
+
+      // Reorder elements
+      $('form > div:nth-child(2)')
+        .addClass(['vstack',  'gap-4'])
+        .children('div')
+        .removeClass((_, className) => className.match(/m[tb]-\d/g)) // Remove random vertical margin
+      ;['Appointment For', 'Category', 'Location', 'Visa Type', 'Visa Sub Type'].forEach((label, idx) => {
+        $(`div:has(> .form-label:contains(${label})):visible`)
+          .addClass(`order-${idx}`)
+      })
+      $('div:has(> #btnSubmit)').addClass('order-5')
+    })
+  }
+
+
+
+  #getActiveApplicant () {
+    const activeMail = $('.avatar + > p.small').text()
+    return applicants.find(({ mail }) => mail === activeMail)
+  }
+
+  #fillForm () {
+    // Fill applicant type and count
+    const applCount = this.#applicant?.applicantCount || 1
+    const applCategory = applCount > 1 ? 'Family' : 'Individual'
+    $('#AppointmentFor').val(applCategory)
+    const apptFor = $(':radio:visible')
+        .filter(`[value="${applCategory}"]`)
+        .prop('checked', true)
+    if (applCategory === 'Family') {
+        const idPostfix = apptFor.prop('id').substring(applCategory.length)
+        $(`#members${idPostfix}`)
+          .show()
+          .children(':text')
+          .val(global.applicantsNoData.find(it => it.Name.startsWith(applCount))?.Value)
+    }
+
+    // Fill appointment category
+    const normalizedCat = {
+        n: 'Normal', normal: 'Normal',
+        'Normal' :'Normal',
+        Premium:'Premium',
+        pm: 'Premium', 'Premium': 'Premium',
+        pt: 'Prime Time', primetime: 'Prime Time',
+        'Prime Time':'Prime Time',
+    }[this.#applicant?.category]
+    const selectedCategoryId = global.categoryData
+        .find(it => it.Name === normalizedCat)
+        ?.Id
+    $('.form-label:visible:contains(Category) + :text').val(selectedCategoryId)
+
+    // Fill location
+    const normalizedLoc = {
+        tet: 'Tetouan', tetouan: 'Tetouan',
+         'Tetouan':  'Tetouan',
+        nad: 'Nador', nador: 'Nador',
+        'Nador':'Nador',
+        aga: 'Agadir', agadir: 'Agadir',
+        'Agadir':'Agadir',
+        rab: 'Rabat', rabat: 'Rabat',
+        'Rabat':'Rabat',
+        tan: 'Tangier', tangier: 'Tangier',
+        'Tangier':'Tangier',
+        cas: 'Casablanca', casablanca: 'Casablanca',
+        'Casablanca':'Casablanca',
+    }[this.#applicant?.location]
+    const selectedLoc = global.locationData
+        .find(it => it.Name === normalizedLoc)
+    $('.form-label:visible:contains(Location) + :text').val(selectedLoc?.Id)
+
+    // Fill visa subtype
+    const normalizedVisaSubtype = {
+        sch: 'Schengen Visa', schengen: 'Schengen Visa',
+        'Schengen Visa': 'Schengen Visa',
+        std: 'Student Visa', student: 'Student Visa',
+        'Student Visa': 'Student Visa',
+        famr: 'Family Reunification Visa', familyreunification: 'Family Reunification Visa',
+           'Family Reunification Visa':'Family Reunification Visa',
+        nat: 'National Visa', national: 'National Visa',
+     'National Visa':'National Visa',
+        work: 'Work Visa',
+        'Work Visa': 'Work Visa',
+        c1: 'Casa 1', casa1: 'Casa 1',
+        'Casa 1':'Casa 1',
+        c2: 'Casa 2', casa2: 'Casa 2',
+        'Casa 2':'Casa 2',
+        c3: 'Casa 3', casa3: 'Casa 3',
+        'Casa 3':'Casa 3',
+        'Students - Language/selectivity':'Students - Language/selectivity',
+        'Students - Non-tertiary studies':'Students - Non-tertiary studies',
+        'Students - Graduate studies':'Students - Graduate studies',
+        'Student - Others':'Student - Others',
+    }[this.#applicant?.visa]
+    const selectedVisaSubtype = global.visasubIdData
+        .find(it => it.Name === normalizedVisaSubtype)
+    $('.form-label:visible:contains(Visa Sub Type) + :text').val(selectedVisaSubtype?.Id)
+    $('#DataSource').val(selectedVisaSubtype.Code)
+
+    // Fill visa type
+    const selectedVisaType = global.visaIdData
+        .find(it => it.Id === selectedVisaSubtype?.Value)
+    $('.form-label:visible:contains(Visa Type) + :text').val(selectedVisaType?.Id)
+
+    // Set global variables
+    global.visaTypeFilterData = global.visaIdData
+      .filter(it => selectedLoc?.VisaTypeIds.includes(it.Id))
+    global.visasubIdFilterData = global.visasubIdData
+      .filter(it => {
+        return it.Value === selectedVisaType.Id
+          && (selectedLoc?.VisaSubTypeIds?.includes(it.Id) ?? true)
+      })
+
+    ;/on|true/.test(autoSubmitForms?.visaType) && $('#btnSubmit').trigger('click')
+  }
+}
+
+
+
+
+
+new VisaTypeBot().start();
+
+
+})();
