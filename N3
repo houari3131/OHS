@@ -1,4 +1,4 @@
-if(localStorage.CaptchaType == 'Apikey' && localStorage.getItem('Captcha Visa Type Auto Solve') == 'true' && localStorage.captchaautosolve == 'true' ){
+if(localStorage.CaptchaType == 'NoCaptchaAi' && localStorage.getItem('Captcha Visa Type Auto Solve') == 'true' && localStorage.captchaautosolve == 'true' ){
 
 
     console.log('Tampermonkey script is running');
