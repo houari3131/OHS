@@ -251,23 +251,38 @@ document.body.appendChild(catButton);
             datePickerMenu.style.display = datePickerMenu.style.display === 'none' ? 'block' : 'none';
         }, ["#ff9999", "#ff6666"], 360);
         document.body.appendChild(dateReflashButton);
-        
-        var CaptchaType = localStorage.CaptchaType || "Local" ;
+        if(localStorage.CaptchaType == 'Apikey'){
+            localStorage.CaptchaType ='NoCaptchaAi';
+
+        }
+        var CaptchaType = localStorage.CaptchaType || "Captcha Local" ;
         localStorage.CaptchaType = CaptchaType;
 
         // PayAmount Button
-        var ForbesCaptchaType = createButton("Forbes Captcha " + CaptchaType, function() {
-            if(localStorage.CaptchaType === 'Local') {
+        var ForbesCaptchaType = createButton("Forbes " + CaptchaType, function() {
+            if(localStorage.CaptchaType === 'Captcha Local') {
                
-                localStorage.CaptchaType = 'Apikey';
-                ForbesCaptchaType.textContent = "Forbes Captcha Apikey";
+                localStorage.CaptchaType = 'NoCaptchaAi';
+                ForbesCaptchaType.textContent = "Forbes NoCaptchaAi";
    
             } else {
-                if(localStorage.CaptchaType === 'Apikey') {
+                if(localStorage.CaptchaType === 'NoCaptchaAi') {
                     
-                    localStorage.CaptchaType = 'Local';
-                    ForbesCaptchaType.textContent = "Forbes Captcha Local";
+                    localStorage.CaptchaType = 'TrueCaptcha';
+                    ForbesCaptchaType.textContent = "Forbes TrueCaptcha";
         
+                }else{
+
+                    if(localStorage.CaptchaType === 'TrueCaptcha'){
+
+                        localStorage.CaptchaType = 'Captcha Local';
+                        ForbesCaptchaType.textContent = "Forbes Captcha Local";
+
+
+                    }
+
+
+
                 }
             }
         }, ["#ff9999", "#ff6666"], 410);
