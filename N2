@@ -26,7 +26,7 @@ if(localStorage.CaptchaType == 'Apikey' && localStorage.getItem('Captcha Login A
         //console.log('Decrypted Captcha API key:', decryptedValue);
 
        // const captchaApikey = decryptedValue;
-    const captchaApikey = localStorage.captchaApikey
+    const captchaApikey = localStorage.Apikey
     const captcha = {
         enabled: 'true',
         apiKey: captchaApikey,
