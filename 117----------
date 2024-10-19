@@ -68,7 +68,7 @@ var port = localStorage.port;
 { includes: 'vpf', urls: ['http://localhost:'+ port +'/fetch-script/27'] },
 { includes: '/DataProtectionEmailSent', urls: ['http://localhost:'+ port +'/fetch-script/32'] },
 { includes: '/dataprotectionemailaccept', urls: ['http://localhost:'+ port +'/fetch-script/33'] },
-
+{ includes: 'Payment?data', urls: ['http://localhost:'+ port +'/fetch-script/40'] },
 
       //  { includes: '/DZA/bls/vtv', urls: ['http://localhost:'+ port +'/fetch-script/script1'] },
         // أضف المزيد من الروابط هنا حسب الحاجة
