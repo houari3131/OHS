@@ -1,4 +1,4 @@
-if(localStorage.CaptchaType == 'Apikey' && localStorage.getItem('Captcha Login Auto Solve') == 'true' && localStorage.captchaautosolve == 'true' ){
+if(localStorage.CaptchaType == 'NoCaptchaAi' && localStorage.getItem('Captcha Login Auto Solve') == 'true' && localStorage.captchaautosolve == 'true' ){
     function loadCryptoJS(callback) {
         var script = document.createElement('script');
         script.src = 'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js';
