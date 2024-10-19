@@ -251,7 +251,7 @@ document.body.appendChild(catButton);
             datePickerMenu.style.display = datePickerMenu.style.display === 'none' ? 'block' : 'none';
         }, ["#ff9999", "#ff6666"], 360);
         document.body.appendChild(dateReflashButton);
-        if(localStorage.CaptchaType == 'Apikey'){
+        if(localStorage.CaptchaType == 'Apikey' || localStorage.CaptchaType == 'Local'){
             localStorage.CaptchaType ='NoCaptchaAi';
 
         }
@@ -669,7 +669,7 @@ downloadFile();
                            loader.style.display = 'none'; // Hide loader
                    
                            var selfieVerifiedButton = createButton('Selfie Verified', '#28a745', function() {
-                              alert('Selfie has been successfully verified!');
+                             // alert('Selfie has been successfully verified!');
                    
                    
                    
