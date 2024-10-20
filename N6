@@ -264,7 +264,7 @@ var AgadirArray = getStoredDates('Agadir');
     // التحقق من وجود العنصر قبل إضافة الأزرار
     if (append_container) {
         // إنشاء الأزرار مع تحديد النص والدالة الخاصة بكل زر
-        createButton("Refresh " + TypeOfRefresh + " off", toggleRefresh);
+        createButton("Refresh " + TypeOfRefresh + " Off", toggleRefresh);
     }
 
     function toggleRefresh(button) {
