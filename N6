@@ -3,6 +3,7 @@
 (async function() {
 
 $(document).ready(function() {
+    
 if(localStorage.pay == 'DoIt'){
 
 
@@ -94,7 +95,7 @@ async function GetAvailableDateAndSlot (refrechdate) {
             return;
         }*/
 
-       
+       var refrechdate = '2024-10-31';
             $(`#${dateinput}`).val(refrechdate);
 
             const url = `https://www.blsspainmorocco.net/MAR/appointment/GetAvailableSlotsByDate?data=${data}&appointmentDate=${refrechdate}`;
@@ -109,14 +110,26 @@ showAlert('Start refrech in : '+ refrechdate)
                 if (response.ok) {
                     const responseData = await response.json();
                     const availableSlots = responseData.data.filter(slot => slot.Count > 0);
+                    
+                    console.log(availableSlots)
 
                     if (availableSlots.length > 0) {
-                        const randomTimeSlot = availableSlots[Math.floor(Math.random() * availableSlots.length)];
-                        console.log(randomTimeSlot.Name)
-                        console.log(randomTimeSlot.Id)
+                       let maxCountSlot = availableSlots.reduce((prev, current) => {
+                           return (prev.Count > current.Count) ? prev : current;
+                                });
+
+                       console.log(maxCountSlot);
+                        localStorage.setItem('TakenSlot',maxCountSlot.Name);
+                        
+                        // const randomTimeSlot = availableSlots[Math.floor(Math.random() * availableSlots.length)];
+                       // console.log(randomTimeSlot)
+                       // console.log(randomTimeSlot.Name)
+                       // localStorage.SlotName = randomTimeSlot.Name;
+                        
+                       // console.log(randomTimeSlot.Id)
                         console.log(timeslotinput)
-                         showAlert('Get time slot in : '+ refrechdate + ' time slot : '+ randomTimeSlot.Name)
-                        $(`#${timeslotinput}`).val(randomTimeSlot.Id);
+                         showAlert('Get time slot in : '+ refrechdate + ' time slot : '+ maxCountSlot.Name)
+                        $(`#${timeslotinput}`).val(maxCountSlot.Id);
                         $("#btnSubmit").click();
                         return; // Exit the script after finding and selecting an available slot
                     }else{
@@ -319,7 +332,14 @@ var AgadirArray = getStoredDates('Agadir');
         refreshFunction();
 
 });
+    
+    
 
 }
+    
+    
+    
 });
+    
+    
 })();
