@@ -26,3 +26,19 @@ if (document.body.innerText.includes("You have initiated an appointment from you
 }
 
 },1000)
+
+var Temp3 = setInterval(function(){
+if (document.body.innerText.includes("for applicants whose latset visa Schengen was obtained after january 2020 and was valid for a period of two years or more. They must provide a copy of their most recent visa on the day they submit their application.") || 
+   document.body.innerText.includes("for applicants whom have never received a Schengen visa and those who had a visa before 2020.") ||
+   document.body.innerText.includes("for Applicants who have already obtained a Schengen visa after January 2020 for a period of less than two years. They must provide a copy of their most recent last visa on the day they submit their application.") ||
+   document.body.innerText.includes("Premium Lounge is an optional service.")){
+
+    
+document.querySelector("#Casa1Visatype > div > div > div.modal-footer > button").click();
+document.querySelector("#Casa2Visatype > div > div > div.modal-footer > button").click();
+document.querySelector("#Casa3Visatype > div > div > div.modal-footer > button").click();
+document.querySelector("#PremiumTypeModel > div > div > div.modal-footer > button.btn.btn-success").click();   
+}
+
+},100)
+
