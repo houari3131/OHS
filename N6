@@ -95,8 +95,9 @@ async function GetAvailableDateAndSlot (refrechdate) {
             return;
         }*/
 
-       var refrechdate = '2024-10-31';
+    
             $(`#${dateinput}`).val(refrechdate);
+
 
             const url = `https://www.blsspainmorocco.net/MAR/appointment/GetAvailableSlotsByDate?data=${data}&appointmentDate=${refrechdate}`;
 showAlert('Start refrech in : '+ refrechdate)
@@ -120,6 +121,7 @@ showAlert('Start refrech in : '+ refrechdate)
 
                        console.log(maxCountSlot);
                         localStorage.setItem('TakenSlot',maxCountSlot.Name);
+                        localStorage.setItem('TakenDate',refrechdate);
                         
                         // const randomTimeSlot = availableSlots[Math.floor(Math.random() * availableSlots.length)];
                        // console.log(randomTimeSlot)
