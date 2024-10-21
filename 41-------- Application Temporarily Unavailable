@@ -1,14 +1,27 @@
 // Check if the body contains the specified phrase
-var Temp = setInterval(function(){
-if (document.body.innerText.includes("Application Temporarily Unavailable")) {
-    console.log("The application is temporarily unavailable.");
+var Temp1 = setInterval(function(){
+if (document.body.innerText.includes("Application Temporarily Unavailable") || 
+    document.body.innerText.includes("You have reached maximum number of requests from this account. Please try after sometime") ||
+    document.body.innerText.includes("Currently, no slots are available for the selected category. Kindly try again after sometime. Thank you for your patience") || 
+   document.body.innerText.includes("An error occured while processing your request. Please try again after sometime") ) {
+    console.log("load to book appointment");
     // Redirect to a new URL
     window.location.href = 'https://www.blsspainmorocco.net/MAR/appointment/newappointment';
-    clearInterval(Temp)
+    clearInterval(Temp1)
     
 } else {
     console.log("The application is available.");
 }
 
+
+},1000)
+
+var Temp2 = setInterval(function(){
+if (document.body.innerText.includes("You have initiated an appointment from your account or IP address which is not yet completed. Would you like to disregard that appointment and start a new one?")){
+
+    
+    document.querySelector("#div-main > div:nth-child(2) > button").click();
+      clearInterval(Temp2)
+}
 
 },1000)
