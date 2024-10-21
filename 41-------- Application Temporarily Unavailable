@@ -1,0 +1,14 @@
+// Check if the body contains the specified phrase
+var Temp = setInterval(function(){
+if (document.body.innerText.includes("Application Temporarily Unavailable")) {
+    console.log("The application is temporarily unavailable.");
+    // Redirect to a new URL
+    window.location.href = 'https://www.blsspainmorocco.net/MAR/appointment/newappointment';
+    clearInterval(Temp)
+    
+} else {
+    console.log("The application is available.");
+}
+
+
+},1000)
