@@ -98,7 +98,6 @@ async function GetAvailableDateAndSlot (refrechdate) {
     
             $(`#${dateinput}`).val(refrechdate);
 
-
             const url = `https://www.blsspainmorocco.net/MAR/appointment/GetAvailableSlotsByDate?data=${data}&appointmentDate=${refrechdate}`;
 showAlert('Start refrech in : '+ refrechdate)
             try {
@@ -110,40 +109,57 @@ showAlert('Start refrech in : '+ refrechdate)
 
                 if (response.ok) {
                     const responseData = await response.json();
-                    const availableSlots = responseData.data.filter(slot => slot.Count > 0);
-                    
-                    console.log(availableSlots)
-
-                    if (availableSlots.length > 0) {
-                       let maxCountSlot = availableSlots.reduce((prev, current) => {
-                           return (prev.Count > current.Count) ? prev : current;
-                                });
-
-                       console.log(maxCountSlot);
-                        localStorage.setItem('TakenSlot',maxCountSlot.Name);
-                        localStorage.setItem('TakenDate',refrechdate);
+                    if (responseData && Array.isArray(responseData.data)) {
+                        const availableSlots = responseData.data.filter(slot => slot.Count > 0);
+                        if (availableSlots.length > 0) {
+                            let maxCountSlot = availableSlots.reduce((prev, current) => (prev.Count > current.Count) ? prev : current);
+                            console.log(maxCountSlot);
+                            localStorage.setItem('TakenSlot', maxCountSlot.Name);
+                            localStorage.setItem('TakenDate', refrechdate);
+                            showAlert('Get time slot in: ' + refrechdate + ' time slot: ' + maxCountSlot.Name);
+                            $(`#${timeslotinput}`).val(maxCountSlot.Id);
+                            $("#btnSubmit").click();
+                            return; // Exit the script after finding and selecting an available slot
+                        } else {
+                            showAlert('No time slot found in: ' + refrechdate);
+                        }
+                    } else {
+                        var ResponseSuccess = responseData.success.toString();
+                      
+                        var ru = responseData.ru.toString();
+                        console.log(ResponseSuccess);
+                        console.log(ru);
+                          localStorage.Count = localStorage.Count || 1 ;
                         
-                        // const randomTimeSlot = availableSlots[Math.floor(Math.random() * availableSlots.length)];
-                       // console.log(randomTimeSlot)
-                       // console.log(randomTimeSlot.Name)
-                       // localStorage.SlotName = randomTimeSlot.Name;
+                        if(ResponseSuccess == 'false' && ru == '/MAR/appointment/newappointment?msg=I8fzwcs%2brL1IcrVm0d2SscHdd0lsZpeqORwoq6tMUDA%3d'){
                         
-                       // console.log(randomTimeSlot.Id)
-                        console.log(timeslotinput)
-                         showAlert('Get time slot in : '+ refrechdate + ' time slot : '+ maxCountSlot.Name)
-                        $(`#${timeslotinput}`).val(maxCountSlot.Id);
-                        $("#btnSubmit").click();
-                        return; // Exit the script after finding and selecting an available slot
-                    }else{
-                    showAlert('No time slot found in : '+ refrechdate)
-
+                                    localStorage.Count = localStorage.Count + 1 ;
+                            
+                            if(localStorage.Count == 1111111){
+                         
+                        document.querySelector("#navbarCollapse2 > ul > li:nth-child(2) > a").click();
+                  
+                            
+                            }
+                            
+                            console.error('Data is undefined or not an array:', responseData);
+                        showAlert('No available data for time slots.');
+                        
+                        }
+                        
                     }
+                } else if ([400, 429, 403].includes(response.status)) {
+                    console.log(response.status);
+                    setTimeout(() => {
+                        document.querySelector("#navbarCollapse2 > ul > li:nth-child(2) > a").click();
+                    }, 2000);
                 } else {
                     console.error('HTTP error!', response.status);
                 }
             } catch (error) {
                 console.error('Error:', error);
             }
+
         
 
         // If we've gone through all dates and found no available slots
@@ -252,7 +268,7 @@ var AgadirArray = getStoredDates('Agadir');
     `;
     document.head.appendChild(style);
 
-    var append_container = document.querySelector("#div-main > div.shadow.rounded-3.p-3.col-md-3.d-sm-12.mx-auto > form > div.validation-summary.text-danger.mb-3.validation-summary-valid");
+    var append_container = document.querySelector("#div-main > div.shadow.rounded-3.p-3.col-md-3.d-sm-12 > form > div.validation-summary.text-danger.mb-3.validation-summary-valid");
 
     function createButton(text, functionName) {
         var button = document.createElement("button");
