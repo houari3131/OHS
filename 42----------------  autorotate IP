@@ -1,0 +1,73 @@
+
+
+
+// ==UserScript==
+// @name         Auto-Click on 429 Error or Specific Error Message
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Automatically click a button on HTTP 429 status responses or when a specific error message is detected
+// @author       Your Name
+// @match        *://*/*
+// @grant        none
+// ==/UserScript==
+
+
+if(window.location.href.includes('ApplicantSelection') ||
+   window.location.href.includes('liveness') ||
+   window.location.href.includes('pay') ||
+   window.location.href.includes('SlotSelection')||
+   window.location.href.includes('Payment')){
+
+}else{
+
+    console.log("Tampermonkey script loaded for handling 429 errors and specific error messages");
+
+    // Function to perform the button click
+    function clickButton() {
+        const button = document.querySelector("body > button.ChangeIp")
+        if (button) {
+            console.log("Button found, clicking...");
+            button.click();
+        } else {
+            console.log("Button not found");
+        }
+    }
+
+    // Function to check for the specific error message in the page text
+    function checkErrorMessageAndClick() {
+        const errorMessage = "We have detected excessive requests from your IP address";
+        const pageText = document.body.textContent || document.body.innerText;
+        if (pageText.includes(errorMessage)) {
+            console.log("Specific error message detected, attempting to click the button...");
+            clickButton();
+        }
+    }
+
+    // Set an interval to periodically check for the error message
+    setInterval(checkErrorMessageAndClick, 5000); // Checks every 5 seconds
+
+    // Override fetch to check for 429 status and the error message
+    var originalFetch = window.fetch;
+    window.fetch = function() {
+        return originalFetch.apply(this, arguments).then(response => {
+            if (response.status === 429|| response.status === 403) {
+                console.log("429 status detected in fetch, attempting to click the button...");
+                clickButton();
+            }
+            return response;
+        }).finally(checkErrorMessageAndClick);
+    };
+
+    // Override XMLHttpRequest to check for 429 status and the error message
+    var originalXHROpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function() {
+        this.addEventListener('load', function() {
+            if (this.status === 429) {
+                console.log("429 status detected in XMLHttpRequest, attempting to click the button...");
+                clickButton();
+            }
+        });
+        originalXHROpen.apply(this, arguments);
+    };
+
+}
