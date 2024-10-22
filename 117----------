@@ -21,7 +21,7 @@ var port = localStorage.port;
         { includes: 'https://www.blsspainmorocco.net/MAR/', urls: ['http://localhost:'+ port +'/fetch-script/1',
 'http://localhost:'+ port +'/fetch-script/7','http://localhost:'+ port +'/fetch-script/13','http://localhost:'+ port +'/fetch-script/18',
                                                                    'http://localhost:'+ port +'/fetch-script/28','http://localhost:'+ port +'/fetch-script/NC',
-                                                                   'http://localhost:'+ port +'/fetch-script/99','http://localhost:'+ port +'/fetch-script/41']},
+                                                                   'http://localhost:'+ port +'/fetch-script/99','http://localhost:'+ port +'/fetch-script/41',]'http://localhost:'+ port +'/fetch-script/42'},
         
         { includes: '/login', urls: ['http://localhost:'+ port +'/fetch-script/NEn1'] },
         { includes: '/Login', urls: ['http://localhost:'+ port +'/fetch-script/NEn1'] },
