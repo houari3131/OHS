@@ -112,29 +112,33 @@ localStorage.selfie = 'true'
 
     // Function to upload profile image
     async function uploadProfileImage(file) {
-        try {
-            const res = await fetch('/MAR/query/UploadProfileImage', {
-                method: 'POST',
-                body: (() => {
-                    const data = new FormData();
-                    data.append('file', file);
-                    return data;
-                })(),
-            });
-            if (res.ok) {
-                const json = await res.json();
-                if (json.success) {
-                    return json.fileId;
-                }
-                throw new TypeError('Failed to upload profile image', json);
+ 
+    try {
+        const res = await fetch('/MAR/query/UploadProfileImage', {
+            method: 'POST',
+            body: (() => {
+                const data = new FormData();
+                data.append('file', file);
+                return data;
+            })(),
+        });
+        if (res.ok) {
+            const json = await res.json();
+            if (json.success) {
+                return json.fileId;
             }
-            throw new TypeError('Bad response', res);
-        } catch (error) {
-            console.error('Failed to upload profile image', error);
-            alert('Failed to upload profile image');
-            return null;
+            throw new TypeError('Failed to upload profile image', json);
         }
+        throw new TypeError('Bad response', res);
+    } catch (error) {
+        console.error('Failed to upload profile image', error);
+        alert('Failed to upload profile image');
+        return null;
     }
+}
+
+
+    
 
     // Function to display uploaded image and ID with copy button
     function displayImageAndId(file, fileId) {
