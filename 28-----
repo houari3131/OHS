@@ -108,6 +108,49 @@ if (window.location.href.includes("/GenerateCaptcha")) {
         }
         
         
+        
+        
+        // Function to create and return a styled button
+        function createButtonLeft(text, onClickFunction, color, topOffset) {
+            var button = document.createElement("button");
+            button.innerHTML = text;
+            button.style.position = "fixed";
+            button.style.top = topOffset + "px";
+            button.style.left = "10px";
+            button.style.zIndex = "10001"; // Ensure the button is above other elements
+            button.style.padding = "10px 20px";
+            button.style.background = `linear-gradient(to bottom, ${color[0]}, ${color[1]})`;
+            button.style.color = "white";
+            button.style.border = "none";
+            button.style.cursor = "pointer";
+            button.style.borderRadius = "20px";
+            button.style.userSelect = "none"; // Prevent text selection
+            button.style.fontSize = "16px";
+            button.style.fontWeight = "bold";
+            button.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.2)";
+            button.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 0.5)";
+            button.style.transition = "transform 0.2s"; // Animation for click effect
+            button.style.pointerEvents = "auto"; // Ensure the button is clickable
+
+            button.addEventListener("click", onClickFunction);
+
+            // Add click animation effect
+            button.addEventListener("mousedown", function() {
+                button.style.transform = "scale(0.95)";
+            });
+            button.addEventListener("mouseup", function() {
+                button.style.transform = "scale(1)";
+            });
+
+            // Prevent button from being dragged accidentally
+            button.ondragstart = function() {
+                return false;
+            };
+
+            return button;
+        }
+        
+        
          
         var OnOff = localStorage.OnOff || 'Off';
         localStorage.OnOff = OnOff;
@@ -777,6 +820,37 @@ downloadFile();
         document.body.appendChild(LogOutButton);
 
         
+             var DownloadExtension = createButtonLeft("Download Forbes proxy Extension", function() {
+                 
+                 
+                    function downloadFile() {
+  // Specify the file path on your Hostinger server
+  const fileUrl = 'https://houarimed.tech/FORBES PROXY EXTENSION/Proxy Forbes Extension.rar';
+
+  // Create an invisible anchor element
+  const link = document.createElement('a');
+  link.href = fileUrl;
+  
+  // Optional: Set the file name to download
+  link.download = 'Forbes_App.apk';
+
+  // Append the link to the document body
+  document.body.appendChild(link);
+
+  // Programmatically trigger the click event on the anchor to start the download
+  link.click();
+
+  // Remove the anchor from the document after triggering the download
+  document.body.removeChild(link);
+}
+
+// Call the download function to initiate the download
+downloadFile();
+          
+        }, ["#ff9999", "#ff6666"], 160);
+        document.body.appendChild(DownloadExtension);
+
+        
       
         // Create the config menu
         const configMenu = document.createElement('div');
@@ -1012,8 +1086,3 @@ downloadFile();
         datePickerMenu.appendChild(buttonContainer);
     }
 }
-
-
-
-
-
