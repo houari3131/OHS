@@ -49,7 +49,7 @@ if(localStorage.selfie == 'true'){
            }else{
            
            if(localStorage.PermutationCat == 'Prime Time'){
-           localStorage.PermutationCat == 'Normal'
+           localStorage.PermutationCat = 'Normal'
            }
            }
            }
@@ -77,7 +77,7 @@ if(localStorage.selfie == 'true'){
            }else{
            
            if(localStorage.PermutationCat == 'Premium'){
-           localStorage.PermutationCat == 'Normal'
+           localStorage.PermutationCat = 'Normal'
            }
            }
            }
