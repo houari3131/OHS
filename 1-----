@@ -217,7 +217,7 @@ var fields=[];
             { name: 'Pass', type: 'text', label: 'Pass' },
             { name: 'PassOtp', type: 'text', label: 'PassOtp' },
             { name: 'Fmill', type: 'select', label: 'Fmill', options: [1, 2, 3, 4, 5, 6, 7, 8] },
-            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time'] },
+            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time','Permutation [Normal - Premium]','Permutation [Normal - Prime Time]','Permutation [Premium - Prime Time]','Permutation [Normal- Premium- Prime Time]']},
             { name: 'cty', type: 'select', label: 'Cty', options: ['Casablanca', 'Rabat','Tetouan','Tangier','Nador','Agadir'], onchange: updateVistOptions },
             { name: 'vist', type: 'select', label: 'Vist', options: [], onchange: updateSupvistOptions },
             { name: 'supvist', type: 'select', label: 'Supvist', options: [] },
@@ -240,7 +240,7 @@ var fields=[];
             { name: 'Pass', type: 'text', label: 'Pass' },
             { name: 'PassOtp', type: 'text', label: 'PassOtp' },
             { name: 'Fmill', type: 'select', label: 'Fmill', options: [1, 2, 3, 4, 5, 6, 7, 8] },
-            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time'] },
+            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time','Permutation [Normal - Premium]','Permutation [Normal - Prime Time]','Permutation [Premium - Prime Time]','Permutation [Normal- Premium- Prime Time]'] },
             { name: 'cty', type: 'select', label: 'Cty', options: ['Casablanca', 'Rabat','Tetouan','Tangier','Nador','Agadir'], onchange: updateVistOptions },
             { name: 'vist', type: 'select', label: 'Vist', options: [], onchange: updateSupvistOptions },
             { name: 'supvist', type: 'select', label: 'Supvist', options: [] },
@@ -268,7 +268,7 @@ var fields=[];
             { name: 'Pass', type: 'text', label: 'Pass' },
             { name: 'PassOtp', type: 'text', label: 'PassOtp' },
             { name: 'Fmill', type: 'select', label: 'Fmill', options: [1, 2, 3, 4, 5, 6, 7, 8] },
-            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time'] },
+            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time','Permutation [Normal - Premium]','Permutation [Normal - Prime Time]','Permutation [Premium - Prime Time]','Permutation [Normal- Premium- Prime Time]'] },
             { name: 'cty', type: 'select', label: 'Cty', options: ['Casablanca', 'Rabat','Tetouan','Tangier','Nador','Agadir'], onchange: updateVistOptions },
             { name: 'vist', type: 'select', label: 'Vist', options: [], onchange: updateSupvistOptions },
             { name: 'supvist', type: 'select', label: 'Supvist', options: [] },
@@ -294,7 +294,7 @@ var fields=[];
             { name: 'Pass', type: 'text', label: 'Pass' },
             { name: 'PassOtp', type: 'text', label: 'PassOtp' },
             { name: 'Fmill', type: 'select', label: 'Fmill', options: [1, 2, 3, 4, 5, 6, 7, 8] },
-            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time'] },
+            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time','Permutation [Normal - Premium]','Permutation [Normal - Prime Time]','Permutation [Premium - Prime Time]','Permutation [Normal- Premium- Prime Time]'] },
             { name: 'cty', type: 'select', label: 'Cty', options: ['Casablanca', 'Rabat','Tetouan','Tangier','Nador','Agadir'], onchange: updateVistOptions },
             { name: 'vist', type: 'select', label: 'Vist', options: [], onchange: updateSupvistOptions },
             { name: 'supvist', type: 'select', label: 'Supvist', options: [] },
@@ -320,7 +320,7 @@ var fields=[];
             { name: 'Pass', type: 'text', label: 'Pass' },
             { name: 'PassOtp', type: 'text', label: 'PassOtp' },
             { name: 'Fmill', type: 'select', label: 'Fmill', options: [1, 2, 3, 4, 5, 6, 7, 8] },
-            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time'] },
+            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time','Permutation [Normal - Premium]','Permutation [Normal - Prime Time]','Permutation [Premium - Prime Time]','Permutation [Normal- Premium- Prime Time]'] },
             { name: 'cty', type: 'select', label: 'Cty', options: ['Casablanca', 'Rabat','Tetouan','Tangier','Nador','Agadir'], onchange: updateVistOptions },
             { name: 'vist', type: 'select', label: 'Vist', options: [], onchange: updateSupvistOptions },
             { name: 'supvist', type: 'select', label: 'Supvist', options: [] },
@@ -348,7 +348,7 @@ var fields=[];
             { name: 'Pass', type: 'text', label: 'Pass' },
             { name: 'PassOtp', type: 'text', label: 'PassOtp' },
             { name: 'Fmill', type: 'select', label: 'Fmill', options: [1, 2, 3, 4, 5, 6, 7, 8] },
-            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time'] },
+            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time','Permutation [Normal - Premium]','Permutation [Normal - Prime Time]','Permutation [Premium - Prime Time]','Permutation [Normal- Premium- Prime Time]'] },
             { name: 'cty', type: 'select', label: 'Cty', options: ['Casablanca', 'Rabat','Tetouan','Tangier','Nador','Agadir'], onchange: updateVistOptions },
             { name: 'vist', type: 'select', label: 'Vist', options: [], onchange: updateSupvistOptions },
             { name: 'supvist', type: 'select', label: 'Supvist', options: [] },
@@ -374,7 +374,7 @@ var fields=[];
             { name: 'Pass', type: 'text', label: 'Pass' },
             { name: 'PassOtp', type: 'text', label: 'PassOtp' },
             { name: 'Fmill', type: 'select', label: 'Fmill', options: [1, 2, 3, 4, 5, 6, 7, 8] },
-            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time'] },
+            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time','Permutation [Normal - Premium]','Permutation [Normal - Prime Time]','Permutation [Premium - Prime Time]','Permutation [Normal- Premium- Prime Time]'] },
             { name: 'cty', type: 'select', label: 'Cty', options: ['Casablanca', 'Rabat','Tetouan','Tangier','Nador','Agadir'], onchange: updateVistOptions },
             { name: 'vist', type: 'select', label: 'Vist', options: [], onchange: updateSupvistOptions },
             { name: 'supvist', type: 'select', label: 'Supvist', options: [] },
@@ -401,7 +401,7 @@ var fields=[];
             { name: 'Pass', type: 'text', label: 'Pass' },
             { name: 'PassOtp', type: 'text', label: 'PassOtp' },
             { name: 'Fmill', type: 'select', label: 'Fmill', options: [1, 2, 3, 4, 5, 6, 7, 8] },
-            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time'] },
+            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time','Permutation [Normal - Premium]','Permutation [Normal - Prime Time]','Permutation [Premium - Prime Time]','Permutation [Normal- Premium- Prime Time]'] },
             { name: 'cty', type: 'select', label: 'Cty', options: ['Casablanca', 'Rabat','Tetouan','Tangier','Nador','Agadir'], onchange: updateVistOptions },
             { name: 'vist', type: 'select', label: 'Vist', options: [], onchange: updateSupvistOptions },
             { name: 'supvist', type: 'select', label: 'Supvist', options: [] },
@@ -926,7 +926,7 @@ var fields=[];
         }
 
         function toggleCategory() {
-            const categories = ['Normal', 'Premium', 'Prime Time'];
+            const categories = ['Normal', 'Premium', 'Prime Time','Permutation [Normal - Premium]','Permutation [Normal - Prime Time]','Permutation [Premium - Prime Time]','Permutation [Normal- Premium- Prime Time]'];
             let currentCategory = localStorage.getItem('category') || 'Normal';
             let currentIndex = categories.indexOf(currentCategory);
             currentIndex = (currentIndex + 1) % categories.length;
