@@ -7,8 +7,16 @@ function notify()
     var locationIdfff; 
     var visasubTypeff; 
         if(localStorage.getItem('isEnabled') == 'true'){ 
-        
+       
+       if(localStorage.category == 'Normal' || localStorage.category == 'Premium' || localStorage.category == 'Prime Time'){
              categoryIdfff = localStorage.category
+        }else{
+        categoryIdfff = localStorage.PermutationCat;
+        }      
+            
+            
+            
+            
      locationIdfff = localStorage.location
      visasubTypeff = localStorage.visaSubtype
         
