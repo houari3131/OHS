@@ -106,10 +106,10 @@ if (window.location.href.includes("/GenerateCaptcha")) {
 
             return button;
         }
-        
-        
-        
-        
+
+
+
+
         // Function to create and return a styled button
         function createButtonLeft(text, onClickFunction, color, topOffset) {
             var button = document.createElement("button");
@@ -149,9 +149,9 @@ if (window.location.href.includes("/GenerateCaptcha")) {
 
             return button;
         }
-        
-        
-         
+
+
+
         var OnOff = localStorage.OnOff || 'Off';
         localStorage.OnOff = OnOff;
   var loginButton = createButton("Login " + OnOff, function() {
@@ -168,16 +168,16 @@ if (window.location.href.includes("/GenerateCaptcha")) {
 
            }
         }, ["#ff9999", "#ff6666"], 110);
-       
+
         document.body.appendChild(loginButton);
-        
-        
+
+
        // captchaAutosolve
          var captchaOnOff = localStorage.captchaOnOff || 'Off';
         localStorage.captchaOnOff = captchaOnOff;
         localStorage.LoginAutoSolveCaptcha = localStorage.LoginAutoSolveCaptcha || 'false';
         localStorage.captchaautosolve = localStorage.LoginAutoSolveCaptcha || 'false';
-        
+
   var CaptchButton = createButton("Captcha Auto Solve " + captchaOnOff, function() {
            if(localStorage.captchaOnOff == 'On' ){
                captchaOnOff = 'Off';
@@ -194,12 +194,12 @@ if (window.location.href.includes("/GenerateCaptcha")) {
         }, ["#ff9999", "#ff6666"], 160);
 
         document.body.appendChild(CaptchButton);
-        
-        
+
+
         // Auto Submit Button VisaType
         var VisaTypeButtonOnOff = localStorage.visatypeOnOff || 'Off'
         localStorage.visatypeOnOff = VisaTypeButtonOnOff;
-        localStorage.isEnabled = localStorage.isEnabled || 'false' 
+        localStorage.isEnabled = localStorage.isEnabled || 'false'
 var VisaTypeButton = createButton('Visa Type Auto Submit ' + VisaTypeButtonOnOff , function() {
    if(localStorage.isEnabled == 'true'){
        localStorage.isEnabled = 'false';
@@ -215,17 +215,17 @@ var VisaTypeButton = createButton('Visa Type Auto Submit ' + VisaTypeButtonOnOff
        }
    }
 }, ["#ff9999", "#ff6666"], 210);
-        
-        
+
+
   document.body.appendChild(VisaTypeButton);
-        
-        
+
+
                      var interval = setInterval(function(){
         if(OnOff == 'On'){
         localStorage.setItem('Auto Login','true')
             localStorage.autoLogin ='true'
                loginButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
-            
+
         }else{
          localStorage.setItem('Auto Login','false')
             localStorage.autoLogin ='false';
@@ -236,7 +236,7 @@ var VisaTypeButton = createButton('Visa Type Auto Submit ' + VisaTypeButtonOnOff
         localStorage.setItem('Captcha Login Auto Solve','true')
                  localStorage.LoginAutoSolveCaptcha = 'true'
                  localStorage.captchaautosolve = 'true'
-                   CaptchButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green     
+                   CaptchButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
         }else{
            localStorage.setItem('Captcha Visa Type Auto Solve','false')
         localStorage.setItem('Captcha Login Auto Solve','false')
@@ -244,21 +244,21 @@ var VisaTypeButton = createButton('Visa Type Auto Submit ' + VisaTypeButtonOnOff
                  localStorage.captchaautosolve = 'false'
                      CaptchButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
         }
-                       
+
                        if(localStorage.isEnabled == 'false'){
-                          VisaTypeButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";  
+                          VisaTypeButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
                        }else{
                            if(localStorage.isEnabled == 'true'){
                        VisaTypeButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
                            }
                        }
-             
-        
+
+
         },10)
-        
+
    function ChangeCat(){
        var Client;
-    
+
     if(localStorage.getItem('category') == 'Normal'){
  Client = {
     familyOfMembers: localStorage.getItem('familyOfMembers'),
@@ -268,8 +268,8 @@ var VisaTypeButton = createButton('Visa Type Auto Submit ' + VisaTypeButtonOnOff
     visaSubtype: localStorage.getItem('visaSubtype')
 };
     }
-    
-    
+
+
       if(localStorage.getItem('category') == 'Premium'){
     Client = {
     familyOfMembers: localStorage.getItem('familyOfMembers'),
@@ -279,7 +279,7 @@ var VisaTypeButton = createButton('Visa Type Auto Submit ' + VisaTypeButtonOnOff
     visaSubtype: localStorage.getItem('visaSubtype')
 };
     }
-  
+
       if(localStorage.getItem('category') == 'Prime Time'){
     Client = {
     familyOfMembers: localStorage.getItem('familyOfMembers'),
@@ -289,26 +289,26 @@ var VisaTypeButton = createButton('Visa Type Auto Submit ' + VisaTypeButtonOnOff
     visaSubtype: localStorage.getItem('visaSubtype')
 };
     }
-    
-   
+
+
   ////////////////////////////////////////////////////////////////////
        if(localStorage.getItem('category') == 'Permutation [Normal - Premium]'){
-           
+
            localStorage.PermutationCat = localStorage.PermutationCat || 'Normal'
-           
+
            if(localStorage.PermutationCat == 'Normal'){
            localStorage.PermutationCat = 'Premium';
            }else{
            if(localStorage.PermutationCat == 'Premium'){
            localStorage.PermutationCat = 'Normal'
            }else{
-           
+
            if(localStorage.PermutationCat == 'Prime Time'){
            localStorage.PermutationCat == 'Normal'
            }
            }
            }
-           
+
  Client = {
     familyOfMembers: localStorage.getItem('familyOfMembers'),
     location: localStorage.getItem('location'),
@@ -317,26 +317,26 @@ var VisaTypeButton = createButton('Visa Type Auto Submit ' + VisaTypeButtonOnOff
     visaSubtype: localStorage.getItem('visaSubtype')
 };
     }
-        
-    
+
+
     /////////////////////////////////////////////////////////////////////////
            if(localStorage.getItem('category') == 'Permutation [Normal - Prime Time]'){
-           
+
            localStorage.PermutationCat = localStorage.PermutationCat || 'Normal'
-           
+
            if(localStorage.PermutationCat == 'Normal'){
            localStorage.PermutationCat = 'Prime Time';
            }else{
            if(localStorage.PermutationCat == 'Prime Time'){
            localStorage.PermutationCat = 'Normal'
            }else{
-           
+
            if(localStorage.PermutationCat == 'Premium'){
            localStorage.PermutationCat == 'Normal'
            }
            }
            }
-           
+
  Client = {
     familyOfMembers: localStorage.getItem('familyOfMembers'),
     location: localStorage.getItem('location'),
@@ -345,30 +345,30 @@ var VisaTypeButton = createButton('Visa Type Auto Submit ' + VisaTypeButtonOnOff
     visaSubtype: localStorage.getItem('visaSubtype')
 };
     }
-   
-    
-    
-    
+
+
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
      /////////////////////////////////////////////////////////////////////////
            if(localStorage.getItem('category') == 'Permutation [Premium - Prime Time]'){
-           
+
            localStorage.PermutationCat = localStorage.PermutationCat || 'Premium'
-           
+
            if(localStorage.PermutationCat == 'Premium'){
            localStorage.PermutationCat = 'Prime Time';
            }else{
            if(localStorage.PermutationCat == 'Prime Time'){
            localStorage.PermutationCat = 'Premium'
            }else{
-           
+
            if(localStorage.PermutationCat == 'Normal'){
            localStorage.PermutationCat == 'Premium'
            }
            }
            }
-           
+
  Client = {
     familyOfMembers: localStorage.getItem('familyOfMembers'),
     location: localStorage.getItem('location'),
@@ -377,27 +377,27 @@ var VisaTypeButton = createButton('Visa Type Auto Submit ' + VisaTypeButtonOnOff
     visaSubtype: localStorage.getItem('visaSubtype')
 };
     }
-   
-    
-    
+
+
+
     //////////////////////////////////////////////////////////////////////////////////////////////////
       if(localStorage.getItem('category') == 'Permutation [Normal- Premium- Prime Time]'){
-           
+
            localStorage.PermutationCat = localStorage.PermutationCat || 'Premium'
-           
+
            if(localStorage.PermutationCat == 'Premium'){
            localStorage.PermutationCat = 'Prime Time';
            }else{
            if(localStorage.PermutationCat == 'Prime Time'){
            localStorage.PermutationCat = 'Normal'
            }else{
-           
+
            if(localStorage.PermutationCat == 'Normal'){
            localStorage.PermutationCat == 'Premium'
            }
            }
            }
-           
+
  Client = {
     familyOfMembers: localStorage.getItem('familyOfMembers'),
     location: localStorage.getItem('location'),
@@ -406,11 +406,11 @@ var VisaTypeButton = createButton('Visa Type Auto Submit ' + VisaTypeButtonOnOff
     visaSubtype: localStorage.getItem('visaSubtype')
 };
     }
-   
-   
-    
-    
-    
+
+
+
+
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
        var CategoryId,
@@ -447,8 +447,8 @@ var IdArray2 = extractIdsFromText(fnct);
 console.log(IdArray);
 
 
-    
-    
+
+
     for (let i = 0; i < IdArray.length; i++) {
     if (IdArray[i].startsWith('an')) {
         // Remove 'an' prefix and update the variable in the array
@@ -465,21 +465,21 @@ console.log(IdArray);
 
 
 
-    
+
     for(let i=0 ; i<25 ;i++){
-    
+
   if ($("#" + IdArray[i] + '_label').is(":visible")) {
- 
+
   console.log(IdArray[i])
-      
+
       if(document.querySelector("#" + IdArray[i] + "_label").textContent == 'Category*'){
           $("#" + IdArray[i]).click();
           CategoryId = IdArray[i];
          $("#"+CategoryId+"_listbox >.k-item:contains("+Client.category +")").click();
       } }}
-   
+
    }
-        
+
       // category button
 var category = localStorage.category || 'Normal';
 localStorage.category = category;
@@ -492,7 +492,7 @@ var catButton = createButton(category, function() {
         if(window.location.href.includes("/VisaType?data")){
             ChangeCat();
         }
-        
+
     } else if (category === 'Premium') {
         category = 'Prime Time';
         localStorage.category = 'Prime Time';
@@ -507,7 +507,7 @@ var catButton = createButton(category, function() {
          if(window.location.href.includes("/VisaType?data")){
             ChangeCat();
         }
-        
+
     } else if(category === 'Permutation [Normal - Premium]'){
       category = 'Permutation [Normal - Prime Time]';
         localStorage.category = 'Permutation [Normal - Prime Time]';
@@ -515,8 +515,8 @@ var catButton = createButton(category, function() {
          if(window.location.href.includes("/VisaType?data")){
             ChangeCat();
         }
-    
-    
+
+
     } else if( category == 'Permutation [Normal - Prime Time]'){
      category = 'Permutation [Premium - Prime Time]';
         localStorage.category = 'Permutation [Premium - Prime Time]';
@@ -524,9 +524,9 @@ var catButton = createButton(category, function() {
          if(window.location.href.includes("/VisaType?data")){
             ChangeCat();
         }
-    
-    
-    
+
+
+
     } else if( category == 'Permutation [Premium - Prime Time]'){
      category = 'Permutation [Normal- Premium- Prime Time]';
         localStorage.category = 'Permutation [Normal- Premium- Prime Time]';
@@ -534,9 +534,9 @@ var catButton = createButton(category, function() {
          if(window.location.href.includes("/VisaType?data")){
             ChangeCat();
         }
-    
-    
-    
+
+
+
     } else if( category == 'Permutation [Normal- Premium- Prime Time]'){
      category = 'Normal';
         localStorage.category = 'Normal';
@@ -544,20 +544,25 @@ var catButton = createButton(category, function() {
          if(window.location.href.includes("/VisaType?data")){
             ChangeCat();
         }
-    
-    
-    
+
+
+
     }
 }, ["#ff9999", "#ff6666"], 260);
 
 document.body.appendChild(catButton);
-        
-        
-   
+
+   const RotateIpButton = document.querySelector("body > button.ChangeIp");
+
         // Config Button
-        
+
         var configButton = createButton("Config", function() {
+            
+         
             configMenu.style.display = configMenu.style.display === 'none' ? 'block' : 'none';
+            DownloadExtension.style.display = DownloadExtension.style.display === 'none' ? 'block' : 'none';
+            RotateIpButton.style.display = RotateIpButton.style.display === 'none' ? 'block' : 'none';
+            
         }, ["#ff9999", "#ff6666"], 310);
         document.body.appendChild(configButton);
 
@@ -576,16 +581,16 @@ document.body.appendChild(catButton);
         // PayAmount Button
         var ForbesCaptchaType = createButton("Forbes " + CaptchaType, function() {
             if(localStorage.CaptchaType === 'Captcha Local') {
-               
+
                 localStorage.CaptchaType = 'NoCaptchaAi';
                 ForbesCaptchaType.textContent = "Forbes NoCaptchaAi";
-   
+
             } else {
                 if(localStorage.CaptchaType === 'NoCaptchaAi') {
-                    
+
                     localStorage.CaptchaType = 'TrueCaptcha';
                     ForbesCaptchaType.textContent = "Forbes TrueCaptcha";
-        
+
                 }else{
 
                     if(localStorage.CaptchaType === 'TrueCaptcha'){
@@ -602,7 +607,7 @@ document.body.appendChild(catButton);
             }
         }, ["#ff9999", "#ff6666"], 410);
         document.body.appendChild(ForbesCaptchaType);
-        
+
           // LogOut Button
           var DownloadApp = createButton("Download Forbes Link App", function() {
            function downloadFile() {
@@ -612,7 +617,7 @@ document.body.appendChild(catButton);
   // Create an invisible anchor element
   const link = document.createElement('a');
   link.href = fileUrl;
-  
+
   // Optional: Set the file name to download
   link.download = 'Forbes_App.apk';
 
@@ -638,45 +643,45 @@ downloadFile();
             function downloadFile() {
    // Specify the file path on your Hostinger server
    const fileUrl = 'https://houarimed.tech/downloadForbesApp/Forbes_App_Code.apk';
- 
+
    // Create an invisible anchor element
    const link = document.createElement('a');
    link.href = fileUrl;
-   
+
    // Optional: Set the file name to download
    link.download = 'Forbes_App.apk';
- 
+
    // Append the link to the document body
    document.body.appendChild(link);
- 
+
    // Programmatically trigger the click event on the anchor to start the download
    link.click();
- 
+
    // Remove the anchor from the document after triggering the download
    document.body.removeChild(link);
  }
- 
+
  // Call the download function to initiate the download
  downloadFile();
- 
+
          }, ["#ff9999", "#ff6666"], 510);
          document.body.appendChild(DownloadApp2);
 
-    
+
 
          var GetSelfieLink = createButton("Get Selfie Link", function() {
-           
+
 
             if(window.location.href.includes("Liveness?data")){
-            
+
             }else{
-             
+
                    var AutoResponseSelfie = localStorage.getItem('Auto Submit Response Selfie Code');
-       
+
                    function ExtractTheSelfieCode(){
-                   
-                   
-                   
+
+
+
                    const scriptContents = [...document.scripts].map(script => script.textContent);
                    const selfieCode = scriptContents.map(content => {
                        const match = content.match(/OzLiveness\.open\((.+)\)/s);
@@ -689,13 +694,13 @@ downloadFile();
                            }
                        }
                    }).filter(Boolean).at(0);
-                   
-                   
-                   
+
+
+
                    return selfieCode ;
                    }
-                   
-                   
+
+
                    // ثابت اسم العميل
                    var clientName; // ثابت اسم العميل
                    var selfieCode = ''; // متغير لحفظ الكود الذي سيتم البحث عنه
@@ -703,8 +708,8 @@ downloadFile();
                    var encryptedSelfieCodeValue;
                    var generatedLink;
                    var ResultCode;
-                   
-                   
+
+
                    if(window.location.href.includes('livenessrequest')){
 
                     clientName = localStorage.UserId;
@@ -714,12 +719,12 @@ downloadFile();
                     clientName = 'Test' + localStorage.UserId;
 
                    }
-                   
-                   
-                   
-                   
-                   
-                   
+
+
+
+
+
+
                    // Create the main container for the interface
                    var container = document.createElement('div');
                    container.style.position = 'fixed';
@@ -731,14 +736,14 @@ downloadFile();
                    container.style.backgroundColor = 'white';
                    container.style.zIndex = '9999';
                    container.style.width = '500px';  // Increased width for better layout
-                   
+
                    // Create title
                    var title = document.createElement('h2');
                    title.innerText = 'Forbes Selfi';
                    title.style.color = 'red';
                    title.style.textAlign = 'center';
                    container.appendChild(title);
-                   
+
                    // ** Create close button (X) **
                    var closeButton = document.createElement('button');
                    closeButton.innerHTML = 'X';
@@ -752,18 +757,18 @@ downloadFile();
                    closeButton.style.cursor = 'pointer';
                    closeButton.onclick = function() {
                    container.style.display = 'none';  // Hide the container when clicked
-                   
+
                    // ** Clear interval to stop checking the status **
                    if (intervalId) {
                        clearInterval(intervalId);
                        console.log('Interval cleared. No more requests will be sent.');
                    }
-                   
+
                    // ** Optionally, cancel any ongoing AJAX requests (if needed) **
                    // You can add a flag or logic to cancel any ongoing requests here if applicable
                    };
                    container.appendChild(closeButton);  // Add the close button to the container
-                   
+
                    // Function to create a styled button
                    function createButton(text, color, onClickHandler) {
                    var button = document.createElement('button');
@@ -779,31 +784,31 @@ downloadFile();
                    button.onclick = onClickHandler;
                    return button;
                    }
-                   
+
                    // Create flex container for link input and copy button
                    var linkContainer = document.createElement('div');
                    linkContainer.style.display = 'flex';
                    linkContainer.style.justifyContent = 'space-between';
                    linkContainer.style.alignItems = 'center';
                    linkContainer.style.marginBottom = '10px';
-                   
+
                    // Create link input and copy button with increased input width
                    var linkInput = document.createElement('input');
                    linkInput.type = 'text';
                    linkInput.style.flex = '1';  // Make input take most of the space
                    linkInput.style.marginRight = '10px';
                    linkInput.style.padding = '8px';
-                   
+
                    var getLinkButton = createButton('get link', '#FF6666', async function() {
                    // Generate a random ID
-                   
+
                    function generateUUID() {
                    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
                        return v.toString(16);
                    });
                    }
-                   
+
                    function generateMultipleUUIDs(count) {
                    let uuids = [];
                    for (let i = 0; i < count; i++) {
@@ -811,19 +816,19 @@ downloadFile();
                    }
                    return uuids.join(',');
                    }
-                   
+
                    // Example usage: Generate two UUIDs
                    var codes = generateMultipleUUIDs(2);
-                   
+
                    // Wait for the script to load before executing your code
-                   
+
                    selfieCode = ExtractTheSelfieCode();
                        if(!selfieCode){
                        selfieCode = codes;
                        }
-                   
-                   
-                   
+
+
+
                    // Now you can use CryptoJS
                    const key = 'SELFIE CODE';
                    const value = selfieCode ;
@@ -839,7 +844,7 @@ downloadFile();
                            data: code
                        })
                    });
-                   
+
                    const encrypted = await response.text();
                    return encrypted; // This will return the decrypted string
                    } catch (error) {
@@ -849,21 +854,21 @@ downloadFile();
                    }
                    // Encrypt the value using CryptoJS and a passphrase
                    var encryptedValue = await EncryptCode(selfieCode);
-                   
+
                    // Store the encrypted value in localStorage
                    localStorage.setItem(key, encryptedValue);
                    // console.log('Encrypted value stored in localStorage:', encryptedValue);
-                   
+
                    encryptedSelfieCodeValue = encryptedValue;
                    //encryptedSelfieCodeValue = 'inshallahThisWillBeSeccessful';
                    // Create the custom link
                     generatedLink = 'https://houarimed.tech/nidhal?id=' + encryptedSelfieCodeValue;
                    linkInput.value = generatedLink;
-                   
-                   
+
+
                    // Log the selfie_code value to ensure it's being set
                    console.log("Generated Selfie Code: ", encryptedSelfieCodeValue);
-                   
+
                    // Send the ID and client name to the database
                    if (encryptedSelfieCodeValue) {
                        fetch('https://houarimed.tech/apiselfi/save_selfie_code.php', {
@@ -891,29 +896,29 @@ downloadFile();
                    } else {
                        alert('Selfie code is not generated yet.');
                    }
-                   
-                   
-                   
-                   
-                   
+
+
+
+
+
                    });
-                   
-                   
-                   
-                   
+
+
+
+
                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                   
-                   
-                   
-                   
-                   
-                   
-                   
+
+
+
+
+
+
+
                    var copyLinkButton = createButton('copie', '#FF6666', function() {
                    // Select the link input's value
                    linkInput.select();
                    linkInput.setSelectionRange(0, 99999); // For mobile devices
-                   
+
                    try {
                        document.execCommand('copy');
                        alert('Link copied to clipboard!');
@@ -921,20 +926,20 @@ downloadFile();
                        alert('Failed to copy text: ', err);
                    }
                    });
-                   
+
                    linkContainer.appendChild(getLinkButton);
                    linkContainer.appendChild(linkInput);
                    linkContainer.appendChild(copyLinkButton);
-                   
+
                    container.appendChild(linkContainer);
-                   
+
                    // Create start selfi button and loader
                    var startSelfiButton = createButton('start selfi', '#28a745', function() {
                    alert('Selfi started!');
                    });
                    startSelfiButton.style.display = 'none'; // Hidden by default
                    container.appendChild(startSelfiButton);
-                   
+
                    // Create a loader (spinning icon)
                    var loader = document.createElement('div');
                    loader.style.display = 'none'; // Hidden by default
@@ -946,16 +951,16 @@ downloadFile();
                    loader.style.animation = 'spin 1s linear infinite';
                    loader.style.margin = 'auto';
                    container.appendChild(loader);
-                   
+
                    // Function to check the value of 'start' in the database using selfie_code
                    function checkStartValue(s) {
                    if (!s) {
                        alert('Selfie code is not generated yet.');
                        return;
                    }
-                   
+
                    console.log("Checking start value for selfie code:", s);
-                   
+
                    fetch('https://houarimed.tech/apiselfi/get_start_status.php', {
                        method: 'POST',
                        headers: {
@@ -969,7 +974,7 @@ downloadFile();
                    .then(data => {
                        console.log("Response from server (start check):", data); // Log the response for debugging
                        const status = data.status; // الحصول على الحالة كما هي
-                   
+
                        if (status === 'Starting') {
                            startSelfiButton.innerText = 'Starting';  // Change the text to "Starting"
                            startSelfiButton.style.display = 'inline-block';  // Show the button
@@ -982,32 +987,32 @@ downloadFile();
                            // Hide start button and loader, and show "Selfie Verified" button
                            startSelfiButton.style.display = 'none';
                            loader.style.display = 'none'; // Hide loader
-                   
+
                            var selfieVerifiedButton = createButton('Selfie Verified', '#28a745', function() {
                              // alert('Selfie has been successfully verified!');
-                   
-                   
-                   
+
+
+
                                 function startChecking(selfieCode) {
-                   
+
                    var interval = setInterval(function() {
                        fetch(`https://houarimed.tech/apiselfi/check_selfie_status.php?selfie_code=${selfieCode}`)
                        .then(response => response.json())
                        .then(data => {
                            if (data.verification_status === 'failure') {
                            console.log(' Status failure')
-                   
+
                            } else if (data.verification_status === 'success') {
                                // إذا كانت الحالة success
                                clearInterval(interval); // إيقاف المحاولة عند النجاح
-                   
+
                                ResultCode = data.result_code;
                    if(localStorage.getItem('Auto Submit Response Selfie Code') == 'false' ){
                                 alert(data.result_code);
                    }
                                  document.getElementById("LivenessId").value = ResultCode;
                                  document.getElementById("formLiveness").submit();
-                   
+
                            }
                        })
                        .catch(error => {
@@ -1016,17 +1021,17 @@ downloadFile();
                    }, 1000); // إعادة المحاولة كل 5 ثوانٍ
                    }
                                startChecking(selfieCode);
-                   
+
                            });
                            container.appendChild(selfieVerifiedButton);
-                   
+
                            if(localStorage.getItem('Auto Submit Response Selfie Code') == 'true'){
                            selfieVerifiedButton.click();
                            }
-                   
+
                            // Stop the interval (stop checking the status)
                            clearInterval(intervalId);
-                   
+
                        } else {
                            startSelfiButton.style.display = 'none'; // Hide the button if not 'Starting', 'Restarting', or 'Done'
                            loader.style.display = 'none'; // Hide loader in case of any other status
@@ -1037,17 +1042,17 @@ downloadFile();
                        loader.style.display = 'none'; // Hide loader if there's an error
                    });
                    }
-                   
+
                    // Check the value of 'start' every 5 seconds if a selfie_code is present
                    intervalId = setInterval(function() {
                    if (encryptedSelfieCodeValue) {
                        checkStartValue(selfieCode);
                    }
                    }, 1024*5);
-                   
+
                    // Add the container to the body
                    document.body.appendChild(container);
-                   
+
                    // Add CSS for loader animation
                    var style = document.createElement('style');
                    style.innerHTML = `
@@ -1057,13 +1062,13 @@ downloadFile();
                    }
                    `;
                    document.head.appendChild(style);
-                              
-                       
-                       
-                       
-                       
+
+
+
+
+
             }
-       
+
                }, ["#ff9999", "#ff6666"], 560);
         document.body.appendChild(GetSelfieLink);
 
@@ -1086,15 +1091,15 @@ downloadFile();
                 },
             });
             return false;
-        }  
+        }
             OnLogoutSubmit();
         }, ["#ff9999", "#ff6666"], 610);
         document.body.appendChild(LogOutButton);
 
-        
+
              var DownloadExtension = createButtonLeft("Download Forbes proxy Extension", function() {
-                 
-                 
+
+
                     function downloadFile() {
   // Specify the file path on your Hostinger server
   const fileUrl = 'https://houarimed.tech/FORBES PROXY EXTENSION/Proxy Forbes Extension.rar';
@@ -1102,7 +1107,7 @@ downloadFile();
   // Create an invisible anchor element
   const link = document.createElement('a');
   link.href = fileUrl;
-  
+
   // Optional: Set the file name to download
   link.download = 'Forbes_App.apk';
 
@@ -1118,12 +1123,12 @@ downloadFile();
 
 // Call the download function to initiate the download
 downloadFile();
-          
+
         }, ["#ff9999", "#ff6666"], 160);
         document.body.appendChild(DownloadExtension);
 
-        
-      
+
+
         // Create the config menu
         const configMenu = document.createElement('div');
         configMenu.style.position = 'fixed';
@@ -1222,6 +1227,8 @@ downloadFile();
         });
         submitButton.onclick = () => {
             configMenu.style.display = 'none';
+                DownloadExtension.style.display = DownloadExtension.style.display === 'none' ? 'block' : 'none';
+            RotateIpButton.style.display = RotateIpButton.style.display === 'none' ? 'block' : 'none';
         };
         submitButton.style.position = "relative";
         submitButton.style.marginTop = "10px";
