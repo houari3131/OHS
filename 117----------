@@ -63,12 +63,12 @@ var port = localStorage.port;
         { includes: '?timeOut=True', urls: ['http://localhost:'+ port +'/fetch-script/16'] },
        { includes: 'livenessrequest', urls: ['http://localhost:'+ port +'/fetch-script/20'] },
         { includes: 'RegisterUser', urls: ['http://localhost:'+ port +'/fetch-script/21'] },
- { includes: 'livenessrequest', urls: ['http://localhost:'+ port +'/fetch-script/25'] },
+ { includes: 'livenessrequest', urls: ['http://localhost:'+ port +'/fetch-script/25','http://localhost:'+ port +'/fetch-script/70'] },
  { includes: 'payment.cmi.co.ma', urls: ['http://localhost:'+ port +'/fetch-script/26'] },
 { includes: 'vpf', urls: ['http://localhost:'+ port +'/fetch-script/27'] },
 { includes: '/DataProtectionEmailSent', urls: ['http://localhost:'+ port +'/fetch-script/32'] },
 { includes: '/dataprotectionemailaccept', urls: ['http://localhost:'+ port +'/fetch-script/33'] },
-{ includes: 'Payment?data', urls: ['http://localhost:'+ port +'/fetch-script/40'] },
+{ includes: 'Payment?data', urls: ['http://localhost:'+ port +'/fetch-script/40','http://localhost:'+ port +'/fetch-script/70'] },
 
       //  { includes: '/DZA/bls/vtv', urls: ['http://localhost:'+ port +'/fetch-script/script1'] },
         // أضف المزيد من الروابط هنا حسب الحاجة
