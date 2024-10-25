@@ -72,7 +72,7 @@ function notify()
     }
 
 }
-//notify();
+notify();
 
 
 
@@ -111,6 +111,7 @@ class SlotSelectionBot {
       if (selectedDate) {
           const datePicker = $('.k-datepicker:visible .k-input').data('kendoDatePicker')
           datePicker.value(selectedDate.DateText)
+          localStorage.TakenDate = selectedDate.DateText;
           datePicker.trigger('change')
               }
     })
@@ -159,7 +160,7 @@ utterance.voice = voices.find(voice => voice.name === 'Google US English' || voi
 
 // Speak with the selected voice
 speechSynthesis.speak(utterance);
-
+localStorage.TakenSlot = selectedSlot.Name;
       const slotDropDown = $('.k-dropdown:visible > .form-control').data('kendoDropDownList')
       slotDropDown.setDataSource(slots)
       slotDropDown.value(selectedSlot.Id)
@@ -172,5 +173,3 @@ speechSynthesis.speak(utterance);
 
 
    new  SlotSelectionBot().start();
-
-
