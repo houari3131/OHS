@@ -84,7 +84,7 @@ if (location.href.indexOf("SlotSelection") !== -1) {
     else {
         $(`#${dateinput}`).val(randomDate.DateText);
     }
-
+localStorage.TakenDate = randomDate.DateText;
     const url = `https://www.blsspainmorocco.net/MAR/appointment/GetAvailableSlotsByDate?data=${data}&appointmentDate=${randomDate.DateText}`;
     console.log(url);
 
@@ -119,6 +119,7 @@ if (location.href.indexOf("SlotSelection") !== -1) {
             if (availableSlots.length > 0) {
                 console.log('Available time slots:', availableSlots.map(slot => slot.Name));
                 const randomTimeSlot = getRandomTimeSlot(availableSlots);
+                localStorage.TakenSlot = randomTimeSlot;
                 console.log('Selected Time Slot:', randomTimeSlot);
                 $(`#${timeslotinput}`).val(randomTimeSlot.Id);
                 $("#btnSubmit").click();
