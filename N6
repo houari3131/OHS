@@ -119,6 +119,7 @@ showAlert('Start refrech in : '+ refrechdate)
                             showAlert('Get time slot in: ' + refrechdate + ' time slot: ' + maxCountSlot.Name);
                             $(`#${timeslotinput}`).val(maxCountSlot.Id);
                             $("#btnSubmit").click();
+                            datevide = false
                             return; // Exit the script after finding and selecting an available slot
                         } else {
                             showAlert('No time slot found in: ' + refrechdate);
