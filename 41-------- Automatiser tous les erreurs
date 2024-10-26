@@ -6,7 +6,8 @@ if (document.body.innerText.includes("Application Temporarily Unavailable") ||
    document.body.innerText.includes("An error occured while processing your request. Please try again after sometime") || 
   document.body.innerText.includes("All your ongoing appointments have been cleared. You can now schedule new appointment") ||
    document.body.innerText.includes("504 Gateway Time-out") || 
-document.body.innerText.includes("We're sorry, something went wrong")) {
+document.body.innerText.includes("We're sorry, something went wrong") ||
+document.body.innerText.includes("The appointment date and time you selected are already taken by other applicants. Please choose a different date and time.")) {
     console.log("load to book appointment");
     // Redirect to a new URL
     window.location.href = 'https://www.blsspainmorocco.net/MAR/appointment/newappointment';
