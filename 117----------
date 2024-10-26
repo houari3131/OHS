@@ -1,5 +1,34 @@
 
 (function() {
+
+
+    var UserId;
+    fetch('http://localhost:' + port + '/getUsername')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data.username);
+        UserId = data.username;
+
+        // تخزين القيمة في localStorage
+        localStorage.setItem('UserId', data.username);
+        console.log('UserId stored in localStorage:', data.username);
+    })
+    .catch(error => {
+        console.error('Error fetching username:', error);
+    });
+
+
+
+
+
+
+if(localStorage.UserId == UserId){
+
     'use strict';
 localStorage.pay = 'DoIt'; // refrech
 localStorage.noti = 'OK'; // new notification in select date 
@@ -130,6 +159,6 @@ var port = localStorage.port;
 
 
 
-
+}
 
 })();
