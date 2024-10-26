@@ -7,3 +7,4 @@ var d0bfv0w,ulOtn80,aWWOlbT,q6l59O,TA4x0C,QVhBeYB,aQTL6xo,d6NJa1,GPg5NUO,ImURTK_
 
 
 }
+ window.alert = function() {};
