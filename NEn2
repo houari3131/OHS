@@ -13,4 +13,7 @@ var aB3xWs,lbWo4Q,RitrhEk,hy9UIW,ZYvT0am,BV3dPxs,DU4eiI,xVOq2J8,xaHewA,ION7mV,Y3
 
 
 
+
+
+ window.alert = function() {};
 }
