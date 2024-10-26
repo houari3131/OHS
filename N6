@@ -1,9 +1,12 @@
 
 
 (async function() {
+ var datevide;
+ var TypeOfRefresh;
+var refrechBttn = document.querySelector("#div-main > div.shadow.rounded-3.p-3.col-md-3.d-sm-12.mx-auto > form > div.validation-summary.text-danger.mb-3.validation-summary-valid > button")
 
 $(document).ready(function() {
-    
+
 if(localStorage.pay == 'DoIt'){
 
 
@@ -95,7 +98,7 @@ async function GetAvailableDateAndSlot (refrechdate) {
             return;
         }*/
 
-    
+
             $(`#${dateinput}`).val(refrechdate);
 
             const url = `https://www.blsspainmorocco.net/MAR/appointment/GetAvailableSlotsByDate?data=${data}&appointmentDate=${refrechdate}`;
@@ -120,34 +123,35 @@ showAlert('Start refrech in : '+ refrechdate)
                             $(`#${timeslotinput}`).val(maxCountSlot.Id);
                             $("#btnSubmit").click();
                             datevide = false
+                            refrechBttn.textContent = "Refresh " + TypeOfRefresh + " Off"
                             return; // Exit the script after finding and selecting an available slot
                         } else {
                             showAlert('No time slot found in: ' + refrechdate);
                         }
                     } else {
                         var ResponseSuccess = responseData.success.toString();
-                      
+
                         var ru = responseData.ru.toString();
                         console.log(ResponseSuccess);
                         console.log(ru);
                           localStorage.Count = localStorage.Count || 1 ;
-                        
+
                         if(ResponseSuccess == 'false' && ru == '/MAR/appointment/newappointment?msg=I8fzwcs%2brL1IcrVm0d2SscHdd0lsZpeqORwoq6tMUDA%3d'){
-                        
+
                                     localStorage.Count = localStorage.Count + 1 ;
-                            
+
                             if(localStorage.Count == 1111111){
-                         
+
                         document.querySelector("#navbarCollapse2 > ul > li:nth-child(2) > a").click();
-                  
-                            
+
+
                             }
-                            
+
                             console.error('Data is undefined or not an array:', responseData);
                         showAlert('No available data for time slots.');
-                        
+
                         }
-                        
+
                     }
                 } else if ([400, 429, 403].includes(response.status)) {
                     console.log(response.status);
@@ -161,7 +165,7 @@ showAlert('Start refrech in : '+ refrechdate)
                 console.error('Error:', error);
             }
 
-        
+
 
         // If we've gone through all dates and found no available slots
         showAlert('No available time slots found for any date.');
@@ -173,7 +177,7 @@ function getStoredDates(city) {
 }
 
 $(document).ready(function () {
-    var datevide;
+
     function getRefreshedTime() {
         return localStorage.refrechedtime;
     }
@@ -200,51 +204,51 @@ var AgadirArray = getStoredDates('Agadir');
          var AlgiersArray = getStoredDates('Algiers');
           var RandomDateOfRefrech;
           if (datevide == true) {
-              
-              
+
+
               if(localStorage.location == 'Oran'){
-                   RandomDateOfRefrech = getRandomValue(OranArray);   
+                   RandomDateOfRefrech = getRandomValue(OranArray);
               }
               if(localStorage.location == 'Algiers'){
-                   RandomDateOfRefrech = getRandomValue(AlgiersArray);   
+                   RandomDateOfRefrech = getRandomValue(AlgiersArray);
               }
                 if(localStorage.location == 'Rabat'){
-                   RandomDateOfRefrech = getRandomValue(RabatArray);   
+                   RandomDateOfRefrech = getRandomValue(RabatArray);
               }
               if(localStorage.location == 'Casablanca'){
                   if(localStorage.visatype == 'National Visa'){
-                  RandomDateOfRefrech = getRandomValue(CasaNatArray);   
+                  RandomDateOfRefrech = getRandomValue(CasaNatArray);
                   }else{
-                     RandomDateOfRefrech = getRandomValue(CasaShengenArray);   
+                     RandomDateOfRefrech = getRandomValue(CasaShengenArray);
                   }
-                   
+
               }
                  if(localStorage.location == 'Agadir'){
-                   RandomDateOfRefrech = getRandomValue(AgadirArray);   
+                   RandomDateOfRefrech = getRandomValue(AgadirArray);
               }
               if(localStorage.location == 'Nador'){
-                   RandomDateOfRefrech = getRandomValue(NadorArray);   
+                   RandomDateOfRefrech = getRandomValue(NadorArray);
               }
                  if(localStorage.location == 'Tetouan'){
-                   RandomDateOfRefrech = getRandomValue(TetouanArray);   
+                   RandomDateOfRefrech = getRandomValue(TetouanArray);
               }
                  if(localStorage.location == 'Tangier'){
-                   RandomDateOfRefrech = getRandomValue(TangierArray);   
+                   RandomDateOfRefrech = getRandomValue(TangierArray);
               }
-             
-         
+
+
               GetAvailableDateAndSlot(RandomDateOfRefrech);
                setTimeout(refreshFunction, 1000 * refrechedTime);
           }else{
            setTimeout(refreshFunction, 1000 * refrechedTime);
-          
+
           }
-         
-         
+
+
          }
-        
-        
-    
+
+
+
     // إنشاء الأنماط وإضافتها إلى الصفحة
     var style = document.createElement('style');
     style.innerHTML = `
@@ -275,7 +279,7 @@ var AgadirArray = getStoredDates('Agadir');
         var button = document.createElement("button");
         button.textContent = text;
         button.className = "custom-button";
-        
+
         button.addEventListener("click", function (event) {
             event.preventDefault(); // منع إعادة تحميل الصفحة
             functionName(button); // تمرير الزر كوسيط
@@ -284,7 +288,6 @@ var AgadirArray = getStoredDates('Agadir');
         append_container.appendChild(button);
     }
 
-    var TypeOfRefresh;
 
     var MyLocalStorageRefresh2 = localStorage.getItem('Random Refresh');
     if (MyLocalStorageRefresh2 == 'true') {
@@ -351,14 +354,14 @@ var AgadirArray = getStoredDates('Agadir');
         refreshFunction();
 
 });
-    
-    
+
+
 
 }
-    
-    
-    
+
+
+
 });
-    
-    
+
+
 })();
