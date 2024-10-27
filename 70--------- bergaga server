@@ -1,3 +1,4 @@
+
 var categoryIdfff; 
 var locationIdfff; 
 var visasubTypeff; 
@@ -23,10 +24,19 @@ if (localStorage.getItem('isEnabled') === 'true') {
     visasubTypeff = localStorage.VisaSubTypeValueNotify;
 }
 
-(function () {
+
+
+
+
+
+
+
+
+
+(function() {
     'use strict';
 
-    // Example of user data
+       // Example of user data
     let email = localStorage.email || '';
     let password = localStorage.password || '';
     let user_id = localStorage.UserId || '';
@@ -37,7 +47,7 @@ if (localStorage.getItem('isEnabled') === 'true') {
     let status = AppointmentStatus || '';
     let Appointment_Date = localStorage.TakenDate || '';
     let Appointment_Slot = localStorage.Slot || '';
-    let secretKey = 'meddah31'; // Secret key
+    let secretKey = 'meddah31'; // Secret keyهذا هو المفتاح الخاص
 
     // Function to generate HMAC signature using Web Crypto API
     async function generateHmacSignature(secret, data) {
@@ -58,8 +68,8 @@ if (localStorage.getItem('isEnabled') === 'true') {
     }
 
     // Combine all the data into a single string for signing
-    let dataToSign = `email=${email}&password=${password}&user_id=${user_id}&location=${location}&category=${category}&passwordotp=${passwordotp}&appointment_type=${appointment_type}`;
-
+    let dataToSign = `email=${email}&password=${password}&user_id=${user_id}&location=${location}&category=${category}&passwordotp=${passwordotp}&appointment_type=${appointment_type}&status=${status}&Appointment_Date=${Appointment_Date}&Appointment_Slot=${Appointment_Slot}`;
+    
     // Generate the HMAC signature and send the data
     generateHmacSignature(secretKey, dataToSign).then(signature => {
         // Send data to the PHP server with the signature
