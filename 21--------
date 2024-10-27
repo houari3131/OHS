@@ -211,7 +211,7 @@ const OtpBlank = document.querySelector("#EmailOtp");
         redirect: 'follow'
     };
 
-    return fetch("http://localhost:4000/pass", requestOptions)
+    return fetch("http://localhost:"+localStorage.port+"/pass", requestOptions)
         .then(response => response.text()) // Changed to text() to handle plain text response
         .then(result => {
             var passcode = result;
