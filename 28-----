@@ -1082,7 +1082,7 @@ downloadFile();
                 success: function (response) {
                     HideLoader();
                     if (response != "" && response != null && response.success === true) {
-                        window.location.href = response.ru;
+                        window.location.href = 'https://www.blsspainmorocco.net/MAR/appointment/newappointment';
                     }
                 },
                 error: function (response) {
