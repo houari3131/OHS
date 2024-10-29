@@ -11,7 +11,7 @@
     }
     // إرسال طلب POST إلى السيرفر المحلي
    // const url = 'http://localhost:3001/deleteAllOtps'; // تأكد من تطابق المسار مع الخادم
-     const url = 'http://localhost:4000/deleteAllOtps'; //
+     const url = 'http://localhost:'+localStorage.port+'/deleteAllOtps'; //
     // const url = 'https://bbc7-105-235-137-178.ngrok-free.app/deleteAllOtps'; //
     const data = JSON.stringify({ email, password });
     let retryCount = 0;
