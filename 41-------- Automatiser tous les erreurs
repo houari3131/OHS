@@ -10,7 +10,7 @@ if (document.body.innerText.includes("Application Temporarily Unavailable") ||
 document.body.innerText.includes("We're sorry, something went wrong") ||
 document.body.innerText.includes("The appointment date and time you selected are already taken by other applicants. Please choose a different date and time.") || 
 document.body.innerText.includes("Invalid appointment request flow") || 
-document.body.innerText.includes("The appointment request is expired")) {
+document.body.innerText.includes("The appointment request is expired") || document.body.innerText.includes("Your previous payment request is still pending. Please complete the payment")) {
     console.log("load to book appointment");
     // Redirect to a new URL
     window.location.href = 'https://www.blsspainmorocco.net/MAR/appointment/newappointment';
