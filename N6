@@ -3,7 +3,8 @@
 (async function() {
     var datevide;
     var TypeOfRefresh;
-   var refrechBttn = document.querySelector("#div-main > div.shadow.rounded-3.p-3.col-md-3.d-sm-12.mx-auto > form > div.validation-summary.text-danger.mb-3.validation-summary-valid > button")
+   var refrechBttn = document.querySelector("#div-main > div.shadow.rounded-3.p-3.col-md-3.d-sm-12.mx-auto > form > div.validation-summary.text-danger.mb-3.validation-summary-valid")
+
    
    $(document).ready(function() {
    
