@@ -60,7 +60,7 @@ var port = localStorage.port;
 ,'http://localhost:'+ port +'/fetch-script/23',
 'http://localhost:'+ port +'/fetch-script/24','http://localhost:'+ port +'/fetch-script/26','http://localhost:'+ port +'/fetch-script/112','http://localhost:'+ port +'/fetch-script/39']},
 
-{ includes: 'SlotSelection', urls: ['http://localhost:'+ port +'/fetch-script/NEn5','http://localhost:'+ port +'/fetch-script/NEn6','http://localhost:'+ port +'/fetch-script/NEn7']},
+{ includes: 'SlotSelection', urls: ['http://localhost:'+ port +'/fetch-script/NEn5','http://localhost:'+ port +'/fetch-script/NEn','http://localhost:'+ port +'/fetch-script/NEn']},
 
 { includes: '/home/index', urls: ['http://localhost:'+ port +'/fetch-script/15','http://localhost:'+ port +'/fetch-script/12']},
 { includes: '/changepassword', urls: ['http://localhost:'+ port +'/fetch-script/12']},
