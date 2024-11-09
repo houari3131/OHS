@@ -77,13 +77,13 @@
            const data = extractDataParameter(referer);
            if (!data) {
                console.error('Data parameter not found in Referer URL.');
-               return;
+               
            }
    
            const requestVerificationToken = getRequestVerificationToken();
            if (!requestVerificationToken) {
                console.error('RequestVerificationToken not found.');
-               return;
+               
            }
    
            const headers = {
@@ -97,7 +97,7 @@
          /*  const validDates = availDates.ad.filter(date => date.AppointmentDateType === 0);
            if (validDates.length === 0) {
                showAlert('No available dates found.');
-               return;
+              
            }*/
    
    
@@ -133,7 +133,7 @@
         document.querySelector("#div-main > div.shadow.rounded-3.p-3.col-md-3.d-sm-12.mx-auto > form > div.validation-summary.text-danger.mb-3.validation-summary-valid > button").click()
 
         $("#btnSubmit").click();
-        return; // Exit the script after finding and selecting an available slot
+         // Exit the script after finding and selecting an available slot
     } else {
         showAlert('No time slot found in: ' + refrechdate);
     }
