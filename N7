@@ -45,7 +45,7 @@ function notify()
                      dateArr2 = value.DateText;
                      teeBoot=teeBoot+" "+value.DateText;
                 });
-                ShowError(teeBoot);
+              //  ShowError(teeBoot);
 
                       var message = locationIdfff+ "\n" + categoryIdfff + "\n"+ visasubTypeff + "\n" +teeBoot
                 
