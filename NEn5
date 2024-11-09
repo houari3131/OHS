@@ -38,7 +38,7 @@ function shuffleArray (array) {
         }
 
 //----------------------------------------------------------------
-
+/*
 function notify()
 {
     var categoryIdfff = localStorage.CatValueNotify
@@ -74,7 +74,7 @@ function notify()
 }
 notify();
 
-
+*/
 
 
 class SlotSelectionBot {
