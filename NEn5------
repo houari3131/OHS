@@ -1,3 +1,10 @@
+document.querySelector("#div-main > div.shadow.rounded-3.p-3.col-md-3.d-sm-12.mx-auto > form > div.validation-summary.text-danger.mb-3.validation-summary-valid > button").click()
+
+
+
+
+
+
 
       const autoSubmitForms = {
   login: localStorage.autoLogin,
@@ -38,7 +45,7 @@ function shuffleArray (array) {
         }
 
 //----------------------------------------------------------------
-
+/*
 function notify()
 {
     var categoryIdfff = localStorage.CatValueNotify
@@ -74,7 +81,7 @@ function notify()
 }
 notify();
 
-
+*/
 
 
 class SlotSelectionBot {
@@ -164,6 +171,7 @@ localStorage.TakenSlot = selectedSlot.Name;
       const slotDropDown = $('.k-dropdown:visible > .form-control').data('kendoDropDownList')
       slotDropDown.setDataSource(slots)
       slotDropDown.value(selectedSlot.Id)
+    
 
       ;/on|true/.test(autoSubmitForms?.slotSelection) && $(() => $('#btnSubmit').trigger('click'))
     }
