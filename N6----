@@ -1,5 +1,7 @@
 
 
+
+
 (async function() {
     var datevide;
     var TypeOfRefresh;
@@ -127,7 +129,9 @@
         localStorage.setItem('TakenDate', refrechdate);
         showAlert('Get time slot in: ' + refrechdate + ' time slot: ' + chosenSlot.Name);
         $(`#${timeslotinput}`).val(chosenSlot.Id);
-        toggleRefresh(refrechBttn);
+      //  toggleRefresh(refrechBttn);
+        document.querySelector("#div-main > div.shadow.rounded-3.p-3.col-md-3.d-sm-12.mx-auto > form > div.validation-summary.text-danger.mb-3.validation-summary-valid > button").click()
+
         $("#btnSubmit").click();
         return; // Exit the script after finding and selecting an available slot
     } else {
