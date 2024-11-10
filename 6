@@ -1,4 +1,4 @@
-if(localStorage.selfie == 'true'){
+
 var Client = {
     familyOfMembers: localStorage.getItem('familyOfMembers'),
     location: localStorage.getItem('location'),
@@ -143,60 +143,12 @@ if($("#self" + IdArray[i]).is(":visible")){
                 clearInterval(slmval);
             }
         }, 1000);
-         }}
+         }
        
     
 
 
 
-
-
-
-
-
-
-
-function OnSubmitSlotSelection() {
-        ShowLoader();
-        $("#SearchDate").val('false');
-        var submittedData={lmvxqh : $("#lmvxqh").val(),
-fneqolvsp : $("#fneqolvsp").val(),
-jdnrtb : $("#jdnrtb").val(),
-zdbisvf : $("#zdbisvf").val(),
-cdycljyr : $("#cdycljyr").val(),
-hfvmvc : $("#hfvmvc").val(),
-mvmnxh : $("#mvmnxh").val(),
-uvlfqg : $("#uvlfqg").val(),
-rlyrqj : $("#rlyrqj").val(),
-yfhcceklz : $("#yfhcceklz").val(),
-};;
-        $("#ResponseData").val(JSON.stringify(submittedData));
-        return true;
-    }
-
-fetch("https://www.blsspainmorocco.net/MAR/Appointment/SlotSelection", {
-  "headers": {
-    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "accept-language": "en-US,en-GB;q=0.9,en;q=0.8,ar;q=0.7,fr-FR;q=0.6,fr;q=0.5,da;q=0.4",
-    "cache-control": "max-age=0",
-    "content-type": "application/x-www-form-urlencoded",
-    "priority": "u=0, i",
-    "sec-ch-ua": "\"Chromium\";v=\"130\", \"Google Chrome\";v=\"130\", \"Not?A_Brand\";v=\"99\"",
-    "sec-ch-ua-mobile": "?0",
-    "sec-ch-ua-platform": "\"Windows\"",
-    "sec-fetch-dest": "document",
-    "sec-fetch-mode": "navigate",
-    "sec-fetch-site": "same-origin",
-    "sec-fetch-user": "?1",
-    "upgrade-insecure-requests": "1"
-  },
-  "referrer": "https://www.blsspainmorocco.net/MAR/Appointment/SlotSelection?data=xcbPv0q2QAFxRPtWsA40LZHkcUHSqsEeoB2LeG9%2Fv87UylVVCDHfTk7EyU84Ze8QiDh%2Fzb2dEW4mUcvUpo4BEmdTVBOQj%2F%2BCu5tZAgyG3dqVZe8Ufzi%2Fw8M7UowO5VrQHcs9kdmNZbFGEiMypsmxSEhEVxuslvuhwJFLjgJCPOOTkbwwkLqWRL7fNsO3BSkvfkbG7v8SeTE7wZH6vWVuZtmn96ZsFMTjRz50nAj9LIidfFdFExS6Pti82Li2hx2F0jZ9lg1%2B2cm8uzXHogl5FI7Ei5f6dSjVipb4lzqXxDY%3D",
-  "referrerPolicy": "no-referrer-when-downgrade",
-  "body": "tupgx=&xmvadm=&eluor=&qqzkvam=&opque=2024-11-26&efzulepgh=2106&porum=&uerqtkfkz=&reeln=&ektak=&Data=xcbPv0q2QAFxRPtWsA40LZHkcUHSqsEeoB2LeG9%2Fv87UylVVCDHfTk7EyU84Ze8QiDh%2Fzb2dEW4mUcvUpo4BEmdTVBOQj%2F%2BCu5tZAgyG3dqVZe8Ufzi%2Fw8M7UowO5VrQHcs9kdmNZbFGEiMypsmxSEhEVxuslvuhwJFLjgJCPOOTkbwwkLqWRL7fNsO3BSkvfkbG7v8SeTE7wZH6vWVuZtmn96ZsFMTjRz50nAj9LIidfFdFExS6Pti82Li2hx2F0jZ9lg1%2B2cm8uzXHogl5FI7Ei5f6dSjVipb4lzqXxDY%3D&ResponseData=%7B%22tupgx%22%3A%22%22%2C%22xmvadm%22%3A%22%22%2C%22eluor%22%3A%22%22%2C%22qqzkvam%22%3A%22%22%2C%22opque%22%3A%222024-11-26%22%2C%22efzulepgh%22%3A%222106%22%2C%22porum%22%3A%22%22%2C%22uerqtkfkz%22%3A%22%22%2C%22reeln%22%3A%22%22%2C%22ektak%22%3A%22%22%7D&AppointmentFor=Individual&SearchDate=false&__RequestVerificationToken=CfDJ8FJkEUwVqCdNqgyhVtFmY8rE70gokWs9YSQznHLl8GHfFQY2YR9fOzT8MV4eth8OVsTLYpfu2r4lcVnv-muNQAe_oYVrlti8lHtmJGHsUG2zbJLvJ2BzMTZvbvjDMzXI8Q3GmNSXuFX8g7B_sMsQBSWoeoTpG-BNHvfvWGpkQOybHvCsqZqWKePhTMq6kqYt7Q",
-  "method": "POST",
-  "mode": "cors",
-  "credentials": "include"
-});
 
 
 
