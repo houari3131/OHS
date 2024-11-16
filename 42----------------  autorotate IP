@@ -13,7 +13,8 @@
 
 
 if(window.location.href.includes('ApplicantSelection') ||
-   window.location.href.includes('Liveness') ||
+   window.location.href.includes('liveness') ||
+ window.location.href.includes('Liveness') ||
    window.location.href.includes('pay') ||
    window.location.href.includes('SlotSelection')||
    window.location.href.includes('Payment')){
