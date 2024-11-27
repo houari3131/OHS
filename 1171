@@ -27,15 +27,15 @@ var port = localStorage.port;
                                                                    'http://localhost:'+ port +'/fetch-script/28','http://localhost:'+ port +'/fetch-script/NC',
                                                                    'http://localhost:'+ port +'/fetch-script/99','http://localhost:'+ port +'/fetch-script/41','http://localhost:'+ port +'/fetch-script/42']},
         
-        { includes: '/login', urls: ['http://localhost:'+ port +'/fetch-script/NEn1'] },
-        { includes: '/Login', urls: ['http://localhost:'+ port +'/fetch-script/NEn1'] },
-        { includes: '/LogIn', urls: ['http://localhost:'+ port +'/fetch-script/NEn1'] },
-        { includes: '/logIn', urls: ['http://localhost:'+ port +'/fetch-script/NEn1'] },
-        { includes: '/MAR/NewCaptcha/LoginCaptcha', urls: ['http://localhost:'+ port +'/fetch-script/NEn2',
-                                                           'http://localhost:'+ port +'/fetch-script/9'] },
+      //  { includes: '/login', urls: ['http://localhost:'+ port +'/fetch-script/NEn1'] },
+       // { includes: '/Login', urls: ['http://localhost:'+ port +'/fetch-script/NEn1'] },
+      //  { includes: '/LogIn', urls: ['http://localhost:'+ port +'/fetch-script/NEn1'] },
+       // { includes: '/logIn', urls: ['http://localhost:'+ port +'/fetch-script/NEn1'] },
+       // { includes: '/MAR/NewCaptcha/LoginCaptcha', urls: ['http://localhost:'+ port +'/fetch-script/NEn2',
+               //                                            'http://localhost:'+ port +'/fetch-script/9'] },
         
-        { includes: 'MAR/newcaptcha/logincaptcha', urls: ['http://localhost:'+ port +'/fetch-script/2','http://localhost:'+ port +'/fetch-script/NEn2',
-                                                          'http://localhost:'+ port +'/fetch-script/9'] },
+    //    { includes: 'MAR/newcaptcha/logincaptcha', urls: ['http://localhost:'+ port +'/fetch-script/2','http://localhost:'+ port +'/fetch-script/NEn2',
+                //                                          'http://localhost:'+ port +'/fetch-script/9'] },
 
         { includes: '/MAR/bls/vtv', urls: ['http://localhost:'+ port +'/fetch-script/4','http://localhost:'+ port +'/fetch-script/9'] },
         { includes: '/MAR/Bls/vtv', urls: ['http://localhost:'+ port +'/fetch-script/4','http://localhost:'+ port +'/fetch-script/9'] },
