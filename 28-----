@@ -631,7 +631,7 @@ document.body.appendChild(catButton);
 
 if(StartButton.textContent == 'Start'){
 
-  StartButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+      StartButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
 }else{
  StartButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
 }
@@ -639,7 +639,7 @@ if(StartButton.textContent == 'Start'){
 
 
         var LogOutButton = createButton("LogOut", function() {
-            function OnLogoutSubmit() {
+           function ForbesLogOut() {
             ShowLoader();
             $.ajax({
                 type: "POST",
@@ -657,7 +657,7 @@ if(StartButton.textContent == 'Start'){
             });
             return false;
         }
-            OnLogoutSubmit();
+            ForbesLogOut();
         }, ["#ff9999", "#ff6666"], 510);
         document.body.appendChild(LogOutButton);
 
