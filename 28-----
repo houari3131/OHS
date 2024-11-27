@@ -610,17 +610,18 @@ document.body.appendChild(catButton);
 
 
         localStorage.StartButtonText = localStorage.StartButtonText || 'Start';
+        localStorage.StartForbes = localStorage.StartForbes || 'false';
         var StartButton = createButton(localStorage.StartButtonText, function() {
           if(StartButton.textContent == 'Start'){
             localStorage.StartButtonText = 'Stop';
             StartButton.textContent = 'Stop';
-            localStorage.StartForbes = 'false';
+            localStorage.StartForbes = 'true';
             StartButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
 
           }else if(StartButton.textContent == 'Stop'){
             localStorage.StartButtonText = 'Start';
             StartButton.textContent = 'Start';
-            localStorage.StartForbes = 'true';
+            localStorage.StartForbes = 'false';
             StartButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
 
           }
@@ -628,7 +629,12 @@ document.body.appendChild(catButton);
         }, ["#ff9999", "#ff6666"], 460);
         document.body.appendChild(StartButton);
 
+if(StartButton.textContent == 'Start'){
 
+  StartButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+}else{
+ StartButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+}
 
 
 
