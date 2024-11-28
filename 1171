@@ -23,7 +23,7 @@ var port = localStorage.port;
      const scriptMappings = [
 
         { includes: 'https://www.blsspainmorocco.net/', urls: ['http://localhost:'+ port +'/fetch-script/1',
-'http://localhost:'+ port +'/fetch-script/7','http://localhost:'+ port +'/fetch-script/13','http://localhost:'+ port +'/fetch-script/18',
+'http://localhost:'+ port +'/fetch-script/7','http://localhost:'+ port +'/fetch-script/13',
                                                                    'http://localhost:'+ port +'/fetch-script/28'
                                                                    ,'http://localhost:'+ port +'/fetch-script/41','http://localhost:'+ port +'/fetch-script/42']},
         
