@@ -1,0 +1,66 @@
+if (window.location.href.includes('ApplicantSelection?data')) {
+    const email = localStorage.getItem('email');
+    const password = localStorage.getItem('passwordOTP');
+    const port = localStorage.getItem('port');
+    const photoId = localStorage.getItem('photoId');
+
+    // Function to fetch OTP
+    async function getOTPOnly() {
+        console.log("Fetching OTP...");
+        let otp = 0;
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({
+            email: email,
+            password: password,
+        });
+
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow',
+        };
+
+        try {
+            const response = await fetch(`http://localhost:${port}/otp2`, requestOptions);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch OTP. Status: ${response.status}`);
+            }
+            const result = await response.json();
+            otp = result.otp; // Assuming the OTP is in the `otp` field
+        } catch (error) {
+            console.error('Error fetching OTP:', error);
+        }
+        return otp;
+    }
+
+    // Auto-fill OTP
+    async function autofillOTP() {
+        const otp = await getOTPOnly();
+        if (otp) {
+            const emailCodeInput = document.querySelector("#EmailCode");
+            if (emailCodeInput) {
+                emailCodeInput.value = otp;
+            } else {
+                console.error("EmailCode input not found.");
+            }
+        } else {
+            console.error("Failed to retrieve OTP.");
+        }
+    }
+
+    autofillOTP();
+
+    // Function to upload the image
+    function uploadImage() {
+        const imageUrl = `https://www.blsspainmorocco.net/MAR/query/getfile?fileid=${photoId}`;
+        const fileInput = document.getElementById('uploadfile-1');
+
+        if (!fileInput) {
+            console.error("File input element not found.");
+            return;
+        }
+
+        const xhr = new
