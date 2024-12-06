@@ -56,7 +56,7 @@ var port = localStorage.port;
 { includes: 'newappointment', urls: ['http://localhost:'+ port +'/fetch-script/113']},
 
 
-{ includes: 'ApplicantSelection', urls: ['http://localhost:'+ port +'/fetch-script/10','http://localhost:'+ port +'/fetch-script/34',
+{ includes: 'ApplicantSelection', urls: ['http://localhost:'+ port +'/fetch-script/10','http://localhost:'+ port +'/fetch-script/11','http://localhost:'+ port +'/fetch-script/34',
 ,'http://localhost:'+ port +'/fetch-script/23','http://localhost:'+ port +'/fetch-script/24',
 'http://localhost:'+ port +'/fetch-script/26','http://localhost:'+ port +'/fetch-script/112','http://localhost:'+ port +'/fetch-script/39']},
 
