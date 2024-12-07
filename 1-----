@@ -2,7 +2,7 @@
 
 (function() {
     'use strict';
-if(window.location.href.includes("VisaType?data")){
+if(window.location.href.includes("VisaType?data") && window.location.href.includes("SlotSelection") ){
 }else{
     let clientsVisible = false;
 localStorage.selfie = 'true'
