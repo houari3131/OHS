@@ -1,5 +1,81 @@
 
 
+// ==UserScript==
+// @name        register
+// @namespace    http://tampermonkey.net/
+// @version      2024-11-30
+// @description  Try to take over the world!
+// @author       OoSama
+// @match        https://www.blsspainmorocco.net/MAR/account/RegisterUser*
+// @grant        none
+// ==/UserScript==
+
+
+
+
+function deleteAllUserVerficationOtps(){
+    'use strict';
+    // تعديل الرابط والبيانات المرسلة حسب الحاجة
+    let email = localStorage.getItem('email');
+    let password = localStorage.getItem('passwordOTP');
+    if (!email || !password) {
+        console.error('Email or password is not set in localStorage');
+        return;
+    }
+    // إرسال طلب POST إلى السيرفر المحلي
+   // const url = 'http://localhost:3001/deleteAllOtps'; // تأكد من تطابق المسار مع الخادم
+     const url = 'http://localhost:'+localStorage.port+'/deleteAllUserVerficationOtps'; //
+    // const url = 'https://bbc7-105-235-137-178.ngrok-free.app/deleteAllOtps'; //
+    const data = JSON.stringify({ email, password });
+    let retryCount = 0;
+    const maxRetries = 6; // تعيين الحد الأقصى لعدد المحاولات
+    function sendRequest() {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: data,
+        })
+        .then(response => response.text())
+        .then(text => {
+            console.log('Response:', text);
+            // إذا كان الرد "No new emails with OTP found. Retrying..."
+            if (text.trim() === 'No new emails with OTP found. Retrying...') {
+                if (retryCount < maxRetries) {
+                    retryCount++;
+                    console.log('Retrying after a delay...');
+                    setTimeout(sendRequest, 2000); // إعادة المحاولة بعد فترة زمنية
+                } else {
+                    console.log('Reached maximum retries. Stopping script.');
+                }
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            // في حالة حدوث خطأ، قم أيضًا بإعادة المحاولة بعد فترة زمنية
+            if (retryCount < maxRetries) {
+                retryCount++;
+                console.log('Retrying after a delay...');
+                setTimeout(sendRequest, 2000); // إعادة المحاولة بعد فترة زمنية
+            } else {
+                console.log('Reached maximum retries. Stopping script.');
+            }
+        });
+    }
+  sendRequest();
+
+
+}
+
+
+
+deleteAllUserVerficationOtps()
+
+
+
+
+
 setTimeout(() => {
     // Get the button
     const button1 = document.querySelector('.btn.btn-success.btn-block[type="button"][data-bs-dismiss="modal"][onclick="onBioDisclaimerAccept();"]').click();
@@ -13,7 +89,7 @@ function regestr() {
     var MobileLocaStotrage = localStorage.getItem('Random Mobile Number');
     var PassportIssuePlaceLocaStotrage = localStorage.getItem('Random Passport Issue Place');
     var PassportIssueAndExpiryDateLocaStotrage = localStorage.getItem('Random Passport Issue And Expiry Date');
-   
+
 
     document.querySelector("#SurName").value = '';
     document.querySelector("#FirstName").value = localStorage.FirstName;
@@ -30,7 +106,7 @@ function regestr() {
      $("#PassportExpiryDate").data("kendoDatePicker").value(localStorage.PassportExpiryDate);
 
    }
-   
+
     if( PassportIssuePlaceLocaStotrage == 'true'){
         document.querySelector("#IssuePlace").value = 'Morocco';
     }else{
@@ -69,59 +145,45 @@ $(document).ready(function() {
     regestr();
 });
 
-function generateOTP() {
-    document.querySelector("#EmailOtp").value = 146962;
-    var validate = validatefield();
 
-    $('.validation-summary').html("");
-    ShowLoader();
-    var email = $("#Email").val();
-    var mobile = $("#Mobile").val();
-    var data = $("#SecurityCode").val();
-    var cd = $("#CaptchaData").val();
-    if (cd === '' || cd === null || cd === undefined) {
-        ShowError('Please verify the captcha');
-        return false;
-    }
-    cd = encodeURIComponent(cd);
-    var ci = $("#CaptchaId").val();
-    var isMobileVerify = $("#MobileVerificationEnabled").val();
-    $.ajax({
-        url: "/MAR/account/SendRegisterUserVerificationCode?email=" + email + "&mobile=" + mobile + "&isMobileVerify=" + isMobileVerify + "&data=" + data + "&captchaData=" + cd + "&captchaId=" + ci,
-        type: 'post',
-        contentType: false,
-        processData: false,
-        success: function(result) {
-            HideLoader();
-            if (result.success) {
-                $('#commonModal').modal('show');
-                $(".div-otp").show();
-                $("#btnSubmit").show();
-                $("#btnReGenerate").show();
-                $("#btnGenerate").hide();
-
-                $('#EncryptedEmail').val(result.encryptEmail);
-                $('#EncryptedMobile').val(result.encryptMobile);
-
-            } else if (result.success == false && result.err != "") {
-
-                document.querySelector("#Mobile").style.color = "#ff0000";
-                switch (result.err) {
-                case "Mobile Number Already Exist":
-                    document.querySelector("#Mobile").style.color = "#ff0000";
-                    break;
-                case "Email Already Exist":
-                    document.querySelector("#Email").style.color = "#ff0000";
-                    break;
-
-                }
-            } else {
-                //  alert(result.err);
-                ShowError(result.err);
-            }
+async function GetOtp(){
+const email = localStorage.getItem('email');
+    const password = localStorage.getItem('passwordOTP');
+    async function getOTPOnly() {
+        console.log("getONLY");
+        let otp = 0;
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+      var raw = JSON.stringify({
+            "email": email,
+            "password": password
+        });
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        try {
+            const response = await fetch("http://localhost:" + localStorage.port + "/UserVerification", requestOptions);
+            const result = await response.json();
+            otp = result;
+        } catch (error) {
+            console.error('Error:', error);
         }
-    });
+        return otp;
+    }
+    var otp = await getOTPOnly(); // Fetching the OTP code
+       console.log(otp) ; // Automatically filling the OTP code
+    // Adding the Retry Request button
+document.querySelector("#EmailOtp").value = otp;
+
+
+
 }
+
+
+
 
 function captchaRe() {
     var urlCaptcha = "/MAR/CaptchaPublic/GenerateCaptcha?data=Jjar7HDMrYjqcKewUqrk06pV9GIp2EJiqBwseP9NXsvdCOgRqEwC3n3n7nAeTxEZiufiBsNFIzyNejZINhdHDxAYSHwtapYQb%2bJXbJh9QY4%3d";
@@ -154,8 +216,22 @@ function captchaRe() {
                     $("#btnVerified").show();
                     $("#btnGenerate").show();
                     $("#SecurityCode").val('dTRW3ziayA%2bB7isvJ6jizCSkGPC4xgGVsljmL6NLW%2fCML%2bq760qHOtRodbUHB7vn82vwXOag4mhtTkO0wVhAmLxUO8Lmjwy71CBDf7vlo0BfBJLyTFTnS8Uy4q%2fUcGc7RjIWgqxtHqXL2kBI2hG%2b5g%3d%3d');
-                    generateOTP();
-                    $("#btnReGenerate").click();
+
+                    $("#btnGenerate").click();
+
+                    var interval = setInterval(function(){
+                        document.querySelector("#commonModal > div > div > div.modal-footer > button").click();
+                    GetOtp();
+                        GetOtp();
+                        GetOtp();
+                        if(document.querySelector("#EmailOtp").value.length === 6){
+                        clearInterval(interval)
+                            document.querySelector("#btnSubmit").click()
+
+                        }
+
+                    },1000)
+
 
                 }
             });
@@ -164,13 +240,13 @@ function captchaRe() {
 }
 
 $(document).ready(function() {
-    captchaRe();
+    setTimeout(captchaRe,5000);
 });
 
 const OtpBlank = document.querySelector("#EmailOtp");
 
 
-     
+
    let SubmitClick = setInterval(function(){
 
    if(OtpBlank.value == '146962'){
