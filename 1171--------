@@ -47,8 +47,8 @@ var port = localStorage.port;
       //  { includes: '/MAR/bls/vt', urls: ['http://localhost:'+ port +'/fetch-script/6','http://localhost:'+ port +'/fetch-script/9','http://localhost:'+ port +'/fetch-script/19','http://localhost:'+ port +'/fetch-script/31']},
     //    { includes: '/MAR/Bls/vt', urls: ['http://localhost:'+ port +'/fetch-script/6','http://localhost:'+ port +'/fetch-script/9','http://localhost:'+ port +'/fetch-script/19','http://localhost:'+ port +'/fetch-script/31']},
         
- { includes: '/VisaType?data', urls: ['http://localhost:'+ port +'/fetch-script/66','http://localhost:'+ port +'/fetch-script/9','http://localhost:'+ port +'/fetch-script/19','http://localhost:'+ port +'/fetch-script/31','http://localhost:'+ port +'/fetch-script/38']},
-{ includes: 'visatype?data', urls: ['http://localhost:'+ port +'/fetch-script/66','http://localhost:'+ port +'/fetch-script/9','http://localhost:'+ port +'/fetch-script/19','http://localhost:'+ port +'/fetch-script/31','http://localhost:'+ port +'/fetch-script/38']},
+ { includes: '/VisaType?data', urls: ['http://localhost:'+ port +'/fetch-script/9','http://localhost:'+ port +'/fetch-script/19','http://localhost:'+ port +'/fetch-script/31','http://localhost:'+ port +'/fetch-script/38']},
+{ includes: 'visatype?data', urls: ['http://localhost:'+ port +'/fetch-script/9','http://localhost:'+ port +'/fetch-script/19','http://localhost:'+ port +'/fetch-script/31','http://localhost:'+ port +'/fetch-script/38']},
         
 
 
