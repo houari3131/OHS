@@ -1,0 +1,977 @@
+
+// Check if the current URL does not include "generate captcha"
+if (window.location.href.includes("/GenerateCaptcha")) {
+
+} else {
+    // Function to dynamically load a script
+    function loadScript(url, callback) {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        script.onload = callback;
+        document.head.appendChild(script);
+    }
+
+    // Function to dynamically load a stylesheet
+    function loadStylesheet(url) {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = url;
+        document.head.appendChild(link);
+    }
+
+    // Load flatpickr CSS
+    loadStylesheet('https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css');
+
+    // Load flatpickr script
+    loadScript('https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js', function() {
+        // Load flatpickr French locale script
+        loadScript('https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/l10n/fr.js', initializeScript);
+    });
+
+    function initializeScript() {
+        const defaultSettings = [
+           'Auto Refresh',
+            'Random Refresh',
+            'Successive Refresh',
+            'Auto Submit Response Selfie Code',
+            'Auto Login',
+            'Captcha Login Auto Solve',
+            'Captcha Visa Type Auto Solve',
+            'Auto Submit Visa Type',
+            'Auto Select Date',
+            'Auto Submit Date Selection',
+            'Auto Upload Photo',
+            'Auto Calendar ByPass Captcha',
+            'Auto Send Otp',
+            'Auto Selfi',
+            'Auto skip',
+            'Random Mobile Number',
+            'Random Passport Issue Place',
+            'Random Passport Issue And Expiry Date'
+        ];
+
+        // Set default settings to true if they are not already set
+        defaultSettings.forEach(setting => {
+            if (localStorage.getItem(setting) === null) {
+                localStorage.setItem(setting, 'true');
+            }
+        });
+
+        // Ensure Random Refresh and Successive Refresh are mutually exclusive
+        function setMutuallyExclusive(ref1, ref2) {
+            const ref1Value = localStorage.getItem(ref1) === 'true';
+            localStorage.setItem(ref1, ref1Value.toString());
+            localStorage.setItem(ref2, (!ref1Value).toString());
+        }
+
+        setMutuallyExclusive('Random Refresh', 'Successive Refresh');
+
+        // Function to create and return a styled button
+        function createButton(text, onClickFunction, color, topOffset) {
+            var button = document.createElement("button");
+            button.innerHTML = text;
+            button.style.position = "fixed";
+            button.style.top = topOffset + "px";
+            button.style.right = "10px";
+            button.style.zIndex = "10001"; // Ensure the button is above other elements
+            button.style.padding = "10px 20px";
+            button.style.background = `linear-gradient(to bottom, ${color[0]}, ${color[1]})`;
+            button.style.color = "white";
+            button.style.border = "none";
+            button.style.cursor = "pointer";
+            button.style.borderRadius = "20px";
+            button.style.userSelect = "none"; // Prevent text selection
+            button.style.fontSize = "16px";
+            button.style.fontWeight = "bold";
+            button.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.2)";
+            button.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 0.5)";
+            button.style.transition = "transform 0.2s"; // Animation for click effect
+            button.style.pointerEvents = "auto"; // Ensure the button is clickable
+
+            button.addEventListener("click", onClickFunction);
+
+            // Add click animation effect
+            button.addEventListener("mousedown", function() {
+                button.style.transform = "scale(0.95)";
+            });
+            button.addEventListener("mouseup", function() {
+                button.style.transform = "scale(1)";
+            });
+
+            // Prevent button from being dragged accidentally
+            button.ondragstart = function() {
+                return false;
+            };
+
+            return button;
+        }
+
+
+
+
+        // Function to create and return a styled button
+        function createButtonLeft(text, onClickFunction, color, topOffset) {
+            var button = document.createElement("button");
+            button.innerHTML = text;
+            button.style.position = "fixed";
+            button.style.top = topOffset + "px";
+            button.style.left = "10px";
+            button.style.zIndex = "10001"; // Ensure the button is above other elements
+            button.style.padding = "10px 20px";
+            button.style.background = `linear-gradient(to bottom, ${color[0]}, ${color[1]})`;
+            button.style.color = "white";
+            button.style.border = "none";
+            button.style.cursor = "pointer";
+            button.style.borderRadius = "20px";
+            button.style.userSelect = "none"; // Prevent text selection
+            button.style.fontSize = "16px";
+            button.style.fontWeight = "bold";
+            button.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.2)";
+            button.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 0.5)";
+            button.style.transition = "transform 0.2s"; // Animation for click effect
+            button.style.pointerEvents = "auto"; // Ensure the button is clickable
+
+            button.addEventListener("click", onClickFunction);
+
+            // Add click animation effect
+            button.addEventListener("mousedown", function() {
+                button.style.transform = "scale(0.95)";
+            });
+            button.addEventListener("mouseup", function() {
+                button.style.transform = "scale(1)";
+            });
+
+            // Prevent button from being dragged accidentally
+            button.ondragstart = function() {
+                return false;
+            };
+
+            return button;
+        }
+
+
+
+        var OnOff = localStorage.OnOff || 'Off';
+        localStorage.OnOff = OnOff;
+  var loginButton = createButton("Login " + OnOff, function() {
+           if(localStorage.OnOff == 'On' ){
+               OnOff = 'Off';
+               localStorage.OnOff = 'Off'
+               loginButton.textContent = 'Login Off'
+                loginButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
+           }else{
+            OnOff = 'On';
+               localStorage.OnOff = 'On'
+               loginButton.textContent = 'Login On'
+               loginButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+
+           }
+        }, ["#ff9999", "#ff6666"], 110);
+
+        document.body.appendChild(loginButton);
+
+
+       // captchaAutosolve
+         var captchaOnOff = localStorage.captchaOnOff || 'Off';
+        localStorage.captchaOnOff = captchaOnOff;
+        localStorage.LoginAutoSolveCaptcha = localStorage.LoginAutoSolveCaptcha || 'false';
+        localStorage.captchaautosolve = localStorage.LoginAutoSolveCaptcha || 'false';
+
+  var CaptchButton = createButton("Captcha Auto Solve " + captchaOnOff, function() {
+           if(localStorage.captchaOnOff == 'On' ){
+               captchaOnOff = 'Off';
+               localStorage.captchaOnOff = 'Off'
+               CaptchButton.textContent = 'Captcha Auto Solve Off'
+                CaptchButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
+           }else{
+            captchaOnOff = 'On';
+               localStorage.captchaOnOff = 'On'
+               CaptchButton.textContent = 'Captcha Auto Solve On'
+               CaptchButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+
+           }
+        }, ["#ff9999", "#ff6666"], 160);
+
+        document.body.appendChild(CaptchButton);
+
+
+        // Auto Submit Button VisaType
+        var VisaTypeButtonOnOff = localStorage.visatypeOnOff || 'Off'
+        localStorage.visatypeOnOff = VisaTypeButtonOnOff;
+        localStorage.isEnabled = localStorage.isEnabled || 'false'
+var VisaTypeButton = createButton('Visa Type Auto Submit ' + VisaTypeButtonOnOff , function() {
+   if(localStorage.isEnabled == 'true'){
+       localStorage.isEnabled = 'false';
+       localStorage.visatypeOnOff ='Off';
+       VisaTypeButton.textContent = 'Visa Type Auto Submit Off'
+        VisaTypeButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
+   }else{
+       if(localStorage.isEnabled == 'false'){
+       localStorage.isEnabled = 'true';
+          localStorage.visatypeOnOff ='On';
+           VisaTypeButton.textContent = 'Visa Type Auto Submit On'
+           VisaTypeButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+       }
+   }
+}, ["#ff9999", "#ff6666"], 210);
+
+
+  document.body.appendChild(VisaTypeButton);
+
+
+                     var interval = setInterval(function(){
+        if(OnOff == 'On'){
+        localStorage.setItem('Auto Login','true')
+            localStorage.autoLogin ='true'
+               loginButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+
+        }else{
+         localStorage.setItem('Auto Login','false')
+            localStorage.autoLogin ='false';
+            loginButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
+        }
+             if(captchaOnOff == 'On'){
+        localStorage.setItem('Captcha Visa Type Auto Solve','true')
+        localStorage.setItem('Captcha Login Auto Solve','true')
+                 localStorage.LoginAutoSolveCaptcha = 'true'
+                 localStorage.captchaautosolve = 'true'
+                   CaptchButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+        }else{
+           localStorage.setItem('Captcha Visa Type Auto Solve','false')
+        localStorage.setItem('Captcha Login Auto Solve','false')
+             localStorage.LoginAutoSolveCaptcha = 'false'
+                 localStorage.captchaautosolve = 'false'
+                     CaptchButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
+        }
+
+                       if(localStorage.isEnabled == 'false'){
+                          VisaTypeButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
+                       }else{
+                           if(localStorage.isEnabled == 'true'){
+                       VisaTypeButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+                           }
+                       }
+
+
+        },10)
+
+   function ChangeCat(){
+       var Client;
+
+    if(localStorage.getItem('category') == 'Normal'){
+ Client = {
+    familyOfMembers: localStorage.getItem('familyOfMembers'),
+    location: localStorage.getItem('location'),
+    category: localStorage.getItem('category'),
+    visatype: localStorage.getItem('visatype'),
+    visaSubtype: localStorage.getItem('visaSubtype')
+};
+    }
+
+
+      if(localStorage.getItem('category') == 'Premium'){
+    Client = {
+    familyOfMembers: localStorage.getItem('familyOfMembers'),
+    location: localStorage.getItem('location'),
+    category: localStorage.getItem('category'),
+    visatype: localStorage.getItem('visatype'),
+    visaSubtype: localStorage.getItem('visaSubtype')
+};
+    }
+
+      if(localStorage.getItem('category') == 'Prime Time'){
+    Client = {
+    familyOfMembers: localStorage.getItem('familyOfMembers'),
+    location: localStorage.getItem('location'),
+    category: localStorage.getItem('category'),
+    visatype: localStorage.getItem('visatype'),
+    visaSubtype: localStorage.getItem('visaSubtype')
+};
+    }
+
+
+  ////////////////////////////////////////////////////////////////////
+       if(localStorage.getItem('category') == 'Permutation [Normal - Premium]'){
+
+           localStorage.PermutationCat = localStorage.PermutationCat || 'Normal'
+
+           if(localStorage.PermutationCat == 'Normal'){
+           localStorage.PermutationCat = 'Premium';
+           }else{
+           if(localStorage.PermutationCat == 'Premium'){
+           localStorage.PermutationCat = 'Normal'
+           }else{
+
+           if(localStorage.PermutationCat == 'Prime Time'){
+           localStorage.PermutationCat = 'Normal'
+           }
+           }
+           }
+
+ Client = {
+    familyOfMembers: localStorage.getItem('familyOfMembers'),
+    location: localStorage.getItem('location'),
+    category: localStorage.PermutationCat,
+    visatype: localStorage.getItem('visatype'),
+    visaSubtype: localStorage.getItem('visaSubtype')
+};
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////
+           if(localStorage.getItem('category') == 'Permutation [Normal - Prime Time]'){
+
+           localStorage.PermutationCat = localStorage.PermutationCat || 'Normal'
+
+           if(localStorage.PermutationCat == 'Normal'){
+           localStorage.PermutationCat = 'Prime Time';
+           }else{
+           if(localStorage.PermutationCat == 'Prime Time'){
+           localStorage.PermutationCat = 'Normal'
+           }else{
+
+           if(localStorage.PermutationCat == 'Premium'){
+           localStorage.PermutationCat = 'Normal'
+           }
+           }
+           }
+
+ Client = {
+    familyOfMembers: localStorage.getItem('familyOfMembers'),
+    location: localStorage.getItem('location'),
+    category: localStorage.PermutationCat,
+    visatype: localStorage.getItem('visatype'),
+    visaSubtype: localStorage.getItem('visaSubtype')
+};
+    }
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+     /////////////////////////////////////////////////////////////////////////
+           if(localStorage.getItem('category') == 'Permutation [Premium - Prime Time]'){
+
+           localStorage.PermutationCat = localStorage.PermutationCat || 'Premium'
+
+           if(localStorage.PermutationCat == 'Premium'){
+           localStorage.PermutationCat = 'Prime Time';
+           }else{
+           if(localStorage.PermutationCat == 'Prime Time'){
+           localStorage.PermutationCat = 'Premium'
+           }else{
+
+           if(localStorage.PermutationCat == 'Normal'){
+           localStorage.PermutationCat = 'Premium'
+           }
+           }
+           }
+
+ Client = {
+    familyOfMembers: localStorage.getItem('familyOfMembers'),
+    location: localStorage.getItem('location'),
+    category: localStorage.PermutationCat,
+    visatype: localStorage.getItem('visatype'),
+    visaSubtype: localStorage.getItem('visaSubtype')
+};
+    }
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+      if(localStorage.getItem('category') == 'Permutation [Normal- Premium- Prime Time]'){
+
+           localStorage.PermutationCat = localStorage.PermutationCat || 'Premium'
+
+           if(localStorage.PermutationCat == 'Premium'){
+           localStorage.PermutationCat = 'Prime Time';
+           }else{
+           if(localStorage.PermutationCat == 'Prime Time'){
+           localStorage.PermutationCat = 'Normal'
+           }else{
+
+           if(localStorage.PermutationCat == 'Normal'){
+           localStorage.PermutationCat = 'Premium'
+           }
+           }
+           }
+
+ Client = {
+    familyOfMembers: localStorage.getItem('familyOfMembers'),
+    location: localStorage.getItem('location'),
+    category: localStorage.PermutationCat,
+    visatype: localStorage.getItem('visatype'),
+    visaSubtype: localStorage.getItem('visaSubtype')
+};
+    }
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+       var CategoryId,
+           LocationId,
+           VisaTypeId,
+           VisaSubTypeId,
+           IndivId,
+           FamilyId,
+           IndivElmnt,
+           FamilyElmnt
+
+function extractIdsFromText(text) {
+    // Regular expression to match the pattern: $("#<id>")
+    const regex = /\$\("#(\w+)"\)/g;
+
+    // Array to hold all matched IDs
+    let ids = [];
+
+    // Variable to store the current match
+    let match;
+
+    // Iterate over all matches
+    while ((match = regex.exec(text)) !== null) {
+        // Add the captured group (which is the ID) to the ids array
+        ids.push(match[1]);
+    }
+
+    return ids;
+}
+
+const fnct= OnSubmitVisaType.toString()
+ var IdArray = extractIdsFromText(fnct);
+var IdArray2 = extractIdsFromText(fnct);
+console.log(IdArray);
+
+
+
+
+    for (let i = 0; i < IdArray.length; i++) {
+    if (IdArray[i].startsWith('an')) {
+        // Remove 'an' prefix and update the variable in the array
+        let modifiedVariable = IdArray[i].slice(2);
+        IdArray[i] = modifiedVariable  // Add the modified variable back to the array
+    }
+}
+    console.log(IdArray);
+
+
+
+
+
+
+
+
+
+    for(let i=0 ; i<25 ;i++){
+
+  if ($("#" + IdArray[i] + '_label').is(":visible")) {
+
+  console.log(IdArray[i])
+
+      if(document.querySelector("#" + IdArray[i] + "_label").textContent == 'Category*'){
+          $("#" + IdArray[i]).click();
+          CategoryId = IdArray[i];
+         $("#"+CategoryId+"_listbox >.k-item:contains("+Client.category +")").click();
+      } }}
+
+   }
+
+      // category button
+var category = localStorage.category || 'Normal';
+localStorage.category = category;
+
+var catButton = createButton(category, function() {
+    if (category === 'Normal') {
+        category = 'Premium';
+        localStorage.category = 'Premium';
+        catButton.textContent = 'Premium';
+        if(window.location.href.includes("/VisaType?data")){
+            ChangeCat();
+        }
+
+    } else if (category === 'Premium') {
+        category = 'Prime Time';
+        localStorage.category = 'Prime Time';
+        catButton.textContent = 'Prime Time';
+         if(window.location.href.includes("/VisaType?data")){
+            ChangeCat();
+        }
+    } else if (category === 'Prime Time') {
+        category = 'Permutation [Normal - Premium]';
+        localStorage.category = 'Permutation [Normal - Premium]';
+        catButton.textContent = 'Permutation [Normal - Premium]';
+         if(window.location.href.includes("/VisaType?data")){
+            ChangeCat();
+        }
+
+    } else if(category === 'Permutation [Normal - Premium]'){
+      category = 'Permutation [Normal - Prime Time]';
+        localStorage.category = 'Permutation [Normal - Prime Time]';
+        catButton.textContent = 'Permutation [Normal - Prime Time]';
+         if(window.location.href.includes("/VisaType?data")){
+            ChangeCat();
+        }
+
+
+    } else if( category == 'Permutation [Normal - Prime Time]'){
+     category = 'Permutation [Premium - Prime Time]';
+        localStorage.category = 'Permutation [Premium - Prime Time]';
+        catButton.textContent = 'Permutation [Premium - Prime Time]';
+         if(window.location.href.includes("/VisaType?data")){
+            ChangeCat();
+        }
+
+
+
+    } else if( category == 'Permutation [Premium - Prime Time]'){
+     category = 'Permutation [Normal- Premium- Prime Time]';
+        localStorage.category = 'Permutation [Normal- Premium- Prime Time]';
+        catButton.textContent = 'Permutation [Normal- Premium- Prime Time]';
+         if(window.location.href.includes("/VisaType?data")){
+            ChangeCat();
+        }
+
+
+
+    } else if( category == 'Permutation [Normal- Premium- Prime Time]'){
+     category = 'Normal';
+        localStorage.category = 'Normal';
+        catButton.textContent = 'Normal';
+         if(window.location.href.includes("/VisaType?data")){
+            ChangeCat();
+        }
+
+
+
+    }
+}, ["#ff9999", "#ff6666"], 260);
+
+document.body.appendChild(catButton);
+
+   const RotateIpButton = document.querySelector("body > button.ChangeIp");
+
+        // Config Button
+
+        var configButton = createButton("Config", function() {
+            
+         
+            configMenu.style.display = configMenu.style.display === 'none' ? 'block' : 'none';
+            DownloadExtension.style.display = DownloadExtension.style.display === 'none' ? 'block' : 'none';
+            RotateIpButton.style.display = RotateIpButton.style.display === 'none' ? 'block' : 'none';
+            
+        }, ["#ff9999", "#ff6666"], 310);
+        document.body.appendChild(configButton);
+
+        // Date Reflash Button
+        var dateReflashButton = createButton("Date Refresh", function() {
+            datePickerMenu.style.display = datePickerMenu.style.display === 'none' ? 'block' : 'none';
+        }, ["#ff9999", "#ff6666"], 360);
+        document.body.appendChild(dateReflashButton);
+
+
+        // PayAmount Button
+        var RecoverTheApp = createButton("Recover The Old Appointment", function() {
+
+           
+            RecoverTheApp.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+            setTimeout(function(){
+                RecoverTheApp.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
+            },500)
+
+            const token = localStorage.LastAppointmentToken;
+            const BASE_URL = "https://www.blsspainmorocco.net";
+            
+              const applicationUrl = `${BASE_URL}/MAR/Appointment/ApplicantSelection?data=${encodeURIComponent(
+                token
+              )}`;
+              window.location.href = applicationUrl;
+
+        }, ["#ff9999", "#ff6666"], 460);
+        document.body.appendChild(RecoverTheApp);
+
+
+        localStorage.StartButtonText = localStorage.StartButtonText || 'Start';
+        localStorage.StartForbes = localStorage.StartForbes || 'false';
+        var StartButton = createButton(localStorage.StartButtonText, function() {
+          if(StartButton.textContent == 'Start'){
+            localStorage.StartButtonText = 'Stop';
+            StartButton.textContent = 'Stop';
+            localStorage.StartForbes = 'true';
+            StartButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+
+          }else if(StartButton.textContent == 'Stop'){
+            localStorage.StartButtonText = 'Start';
+            StartButton.textContent = 'Start';
+            localStorage.StartForbes = 'false';
+            StartButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
+
+          }
+        
+        }, ["#ff9999", "#ff6666"], 510);
+        document.body.appendChild(StartButton);
+
+if(StartButton.textContent == 'Start'){
+
+      StartButton.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
+}else{
+ StartButton.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+}
+
+var CancelTheApp = createButton("Cancel Your Old Appointment", function() {
+   
+    function showAlert(message, duration = 5000) {
+        const alertDiv = document.createElement('div');
+        alertDiv.textContent = message;
+        alertDiv.style.position = 'fixed';
+        alertDiv.style.top = '50%';
+        alertDiv.style.left = '50%';
+        alertDiv.style.transform = 'translate(-50%, -50%)';
+        alertDiv.style.padding = '20px';
+        alertDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        alertDiv.style.color = 'white';
+        alertDiv.style.borderRadius = '5px';
+        alertDiv.style.zIndex = '9999';
+        document.body.appendChild(alertDiv);
+        setTimeout(() => alertDiv.remove(), duration);
+    }
+
+
+
+const CancelThePreviousAppointement = async () => {
+
+
+const BASE_URL = "https://www.blsspainmorocco.net";
+
+const urlParams = new URLSearchParams(new URL(window.location.href).search);
+const url = `${BASE_URL}/MAR/Appointment/PendingAppointment`;
+
+const nodeCerts = document.getElementsByName("__RequestVerificationToken");
+const cert = nodeCerts[0]?.value;
+
+
+
+
+
+
+const payload = {
+
+__RequestVerificationToken: cert,
+};
+
+window.ShowLoader();
+
+const result = await window.$.post(url, payload);
+console.log(result)
+const AppntmentCanceled = result.includes('Book New Appointment - Pending Apointment Removed')
+
+window.HideLoader();
+if(AppntmentCanceled){
+
+
+showAlert('The Previous Appointment Has Been Canceled')
+
+}
+};
+
+CancelThePreviousAppointement();
+
+ }, ["#ff9999", "#ff6666"], 560);
+ document.body.appendChild(CancelTheApp);
+
+
+        var LogOutButton = createButton("LogOut", function() {
+           function ForbesLogOut() {
+            ShowLoader();
+            $.ajax({
+                type: "POST",
+                url: "/MAR/account/logout",
+                success: function (response) {
+                    HideLoader();
+                    if (response != "" && response != null && response.success === true) {
+                        window.location.href = 'https://www.blsspainmorocco.net/MAR/appointment/newappointment';
+                    }
+                },
+                error: function (response) {
+                    HideLoader();
+                    alert(response.error);
+                },
+            });
+            return false;
+        }
+            ForbesLogOut();
+        }, ["#ff9999", "#ff6666"], 610);
+        document.body.appendChild(LogOutButton);
+
+
+             var DownloadExtension = createButtonLeft("Download Forbes proxy Extension", function() {
+
+
+                    function downloadFile() {
+  // Specify the file path on your Hostinger server
+  const fileUrl = 'https://houarimed.tech/FORBES PROXY EXTENSION/Proxy Forbes Extension.rar';
+
+  // Create an invisible anchor element
+  const link = document.createElement('a');
+  link.href = fileUrl;
+
+  // Optional: Set the file name to download
+  link.download = 'Forbes_App.apk';
+
+  // Append the link to the document body
+  document.body.appendChild(link);
+
+  // Programmatically trigger the click event on the anchor to start the download
+  link.click();
+
+  // Remove the anchor from the document after triggering the download
+  document.body.removeChild(link);
+}
+
+// Call the download function to initiate the download
+downloadFile();
+
+        }, ["#ff9999", "#ff6666"], 160);
+        document.body.appendChild(DownloadExtension);
+
+
+
+        // Create the config menu
+        const configMenu = document.createElement('div');
+        configMenu.style.position = 'fixed';
+        configMenu.style.top = '0';
+        configMenu.style.left = '0';
+        configMenu.style.width = '100%'; // Full width
+        configMenu.style.height = '100%'; // Full height
+        configMenu.style.backgroundColor = 'rgba(255, 255, 255, 0.9)'; // Semi-transparent background
+        configMenu.style.border = '1px solid #ccc';
+        configMenu.style.borderRadius = '10px';
+        configMenu.style.display = 'none';
+        configMenu.style.zIndex = '10000'; // Ensure the config menu is above all elements but below the buttons
+        configMenu.style.overflow = 'auto'; // Add scrolling if content overflows
+        configMenu.style.padding = '20px';
+        configMenu.style.pointerEvents = "auto"; // Ensure the config menu is interactive
+        document.body.appendChild(configMenu);
+
+        // Create and add checkboxes to the config menu
+        const options = [
+            'Auto Refresh',
+            'Random Refresh',
+            'Successive Refresh',
+            'Auto Submit Response Selfie Code',
+            'Auto Login',
+            'Captcha Login Auto Solve',
+            'Captcha Visa Type Auto Solve',
+            'Auto Submit Visa Type',
+            'Auto Select Date',
+            'Auto Submit Date Selection',
+            'Auto Upload Photo',
+            'Auto Calendar ByPass Captcha',
+            'Auto Send Otp',
+            'Auto Selfi',
+            'Auto skip',
+            'Random Mobile Number',
+            'Random Passport Issue Place',
+            'Random Passport Issue And Expiry Date'
+        ];
+
+        options.forEach(option => {
+            const label = document.createElement('label');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = localStorage.getItem(option) === 'true';
+            checkbox.onchange = () => {
+                if (option === 'Random Refresh' || option === 'Successive Refresh') {
+                    localStorage.setItem(option, checkbox.checked.toString());
+                    if (checkbox.checked) {
+                        if (option === 'Random Refresh') {
+                            localStorage.setItem('Successive Refresh', 'false');
+                            document.getElementById('Successive Refresh').checked = false;
+                        } else {
+                            localStorage.setItem('Random Refresh', 'false');
+                            document.getElementById('Random Refresh').checked = false;
+                        }
+                    } else {
+                        if (option === 'Random Refresh') {
+                            localStorage.setItem('Successive Refresh', 'true');
+                            document.getElementById('Successive Refresh').checked = true;
+                        } else {
+                            localStorage.setItem('Random Refresh', 'true');
+                            document.getElementById('Random Refresh').checked = true;
+                        }
+                    }
+                } else {
+                    localStorage.setItem(option, checkbox.checked);
+                }
+            };
+            checkbox.id = option;
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(option));
+            configMenu.appendChild(label);
+            configMenu.appendChild(document.createElement('br'));
+        });
+
+        // Create and add the submit button to the config menu
+        const submitButton = document.createElement('button');
+        submitButton.innerText = 'Submit';
+        submitButton.style.padding = "10px 20px";
+        submitButton.style.background = `linear-gradient(to bottom, #99ff99, #66ff66)`;
+        submitButton.style.color = "white";
+        submitButton.style.border = "none";
+        submitButton.style.cursor = "pointer";
+        submitButton.style.borderRadius = "20px";
+        submitButton.style.userSelect = "none"; // Prevent text selection
+        submitButton.style.fontSize = "16px";
+        submitButton.style.fontWeight = "bold";
+        submitButton.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.2)";
+        submitButton.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 0.5)";
+        submitButton.style.transition = "transform 0.2s"; // Animation for click effect
+        submitButton.addEventListener("mousedown", function() {
+            submitButton.style.transform = "scale(0.95)";
+        });
+        submitButton.addEventListener("mouseup", function() {
+            submitButton.style.transform = "scale(1)";
+        });
+        submitButton.onclick = () => {
+            configMenu.style.display = 'none';
+                DownloadExtension.style.display = DownloadExtension.style.display === 'none' ? 'block' : 'none';
+            RotateIpButton.style.display = RotateIpButton.style.display === 'none' ? 'block' : 'none';
+        };
+        submitButton.style.position = "relative";
+        submitButton.style.marginTop = "10px";
+        configMenu.appendChild(submitButton);
+
+        // Create the date picker menu
+        const datePickerMenu = document.createElement('div');
+        datePickerMenu.style.position = 'fixed';
+        datePickerMenu.style.top = '0';
+        datePickerMenu.style.left = '50%'; // Center the date picker menu horizontally
+        datePickerMenu.style.transform = 'translateX(-50%)'; // Center the date picker menu
+        datePickerMenu.style.width = '50%'; // Half width
+        datePickerMenu.style.backgroundColor = 'rgba(255, 255, 255, 0.9)'; // Semi-transparent background
+        datePickerMenu.style.border = '1px solid #ccc';
+        datePickerMenu.style.borderRadius = '10px';
+        datePickerMenu.style.display = 'none';
+        datePickerMenu.style.zIndex = '10000'; // Ensure the date picker menu is above all elements but below the buttons
+        datePickerMenu.style.overflow = 'auto'; // Add scrolling if content overflows
+        datePickerMenu.style.padding = '20px';
+        datePickerMenu.style.pointerEvents = "auto"; // Ensure the date picker menu is interactive
+        document.body.appendChild(datePickerMenu);
+
+        // Function to save selected dates to localStorage for a city
+        function saveDates(city, dates) {
+            localStorage.setItem(city + 'Dates', JSON.stringify(dates));
+        }
+
+        // Function to clear selected dates for a city from localStorage, input field, and flatpickr instance
+        function clearDates(city) {
+            localStorage.removeItem(city + 'Dates');
+            const dateInput = document.getElementById(city + 'DatePicker');
+            if (dateInput && dateInput._flatpickr) {
+                dateInput._flatpickr.clear();
+            }
+        }
+
+        // Function to handle date selection and saving
+        function handleDateSelection(city) {
+            return function(selectedDates, dateStr, instance) {
+                let cityDatesArray = selectedDates.map(date => instance.formatDate(date, "Y-m-d"));
+                saveDates(city, cityDatesArray);
+            };
+        }
+
+        // Create and add a date picker input using flatpickr for each city
+        const cities = [
+            { name: 'CasaNat', label: 'Casablanca (NAT)' },
+            { name: 'CasaShengen', label: 'Casablanca (Shengen)' },
+            { name: 'Rabat', label: 'Rabat' },
+            { name: 'Tetouan', label: 'Tetouan' },
+            { name: 'Nador', label: 'Nador' },
+            { name: 'Tangier', label: 'Tangier' },
+            { name: 'Agadir', label: 'Agadir' }
+        ];
+
+        cities.forEach(city => {
+            const container = document.createElement('div');
+            container.style.display = 'flex';
+            container.style.alignItems = 'center';
+            container.style.marginBottom = '10px';
+
+            const label = document.createElement('label');
+            label.innerText = city.label + ': ';
+            label.style.fontWeight = 'bold';
+            label.style.fontSize = '18px';
+            label.style.marginRight = '10px';
+            container.appendChild(label);
+
+            const dateInput = document.createElement('input');
+            dateInput.id = city.name + 'DatePicker';
+            dateInput.style.flex = '1';
+            container.appendChild(dateInput);
+
+            const clearButton = document.createElement('button');
+            clearButton.innerText = 'Clear';
+            clearButton.style.marginLeft = '10px';
+            clearButton.style.padding = '5px 10px';
+            clearButton.style.background = `linear-gradient(to bottom, #ff9999, #ff6666)`;
+            clearButton.style.color = 'white';
+            clearButton.style.border = 'none';
+            clearButton.style.cursor = 'pointer';
+            clearButton.style.borderRadius = '5px';
+            clearButton.addEventListener('click', () => clearDates(city.name));
+            container.appendChild(clearButton);
+
+            datePickerMenu.appendChild(container);
+
+            const fp = flatpickr("#" + city.name + "DatePicker", {
+                mode: "multiple",
+                dateFormat: "Y-m-d",
+                locale: "fr",
+                onClose: handleDateSelection(city.name)
+            });
+
+            // Load saved dates from localStorage
+            const savedDates = JSON.parse(localStorage.getItem(city.name + 'Dates'));
+            if (savedDates && savedDates.length > 0) {
+                fp.setDate(savedDates);
+            }
+        });
+
+        // Create Save and Exit buttons
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.display = 'flex';
+        buttonContainer.style.justifyContent = 'space-between';
+        buttonContainer.style.marginTop = '20px';
+
+        const saveButton = document.createElement('button');
+        saveButton.innerText = 'Save';
+        saveButton.style.padding = '10px 20px';
+        saveButton.style.background = `linear-gradient(to bottom, #99ff99, #66ff66)`;
+        saveButton.style.color = 'white';
+        saveButton.style.border = 'none';
+        saveButton.style.cursor = 'pointer';
+        saveButton.style.borderRadius = '5px';
+        saveButton.addEventListener('click', () => {
+            datePickerMenu.style.display = 'none';
+        });
+        buttonContainer.appendChild(saveButton);
+
+        const exitButton = document.createElement('button');
+        exitButton.innerText = 'Exit';
+        exitButton.style.padding = '10px 20px';
+        exitButton.style.background = `linear-gradient(to bottom, #ff9999, #ff6666)`;
+        exitButton.style.color = 'white';
+        exitButton.style.border = 'none';
+        exitButton.style.cursor = 'pointer';
+        exitButton.style.borderRadius = '5px';
+        exitButton.addEventListener('click', () => {
+            datePickerMenu.style.display = 'none';
+        });
+        buttonContainer.appendChild(exitButton);
+
+        datePickerMenu.appendChild(buttonContainer);
+    }
+}
