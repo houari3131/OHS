@@ -662,13 +662,13 @@ const payload = {
 __RequestVerificationToken: cert,
 };
 
-window.ShowLoader();
+ShowLoader();
 
-const result = await window.$.post(url, payload);
+const result = await $.post(url, payload);
 console.log(result)
 const AppntmentCanceled = result.includes('Book New Appointment - Pending Apointment Removed')
 
-window.HideLoader();
+HideLoader();
 if(AppntmentCanceled){
 
 
