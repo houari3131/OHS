@@ -583,15 +583,47 @@ document.body.appendChild(catButton);
             },500)
 
             const token = localStorage.LastAppointmentToken;
-            const BASE_URL = "https://www.blsspainmorocco.net";
+            if(token !== ''){
+                const BASE_URL = "https://www.blsspainmorocco.net";
             
-              const applicationUrl = `${BASE_URL}/MAR/Appointment/ApplicantSelection?data=${encodeURIComponent(
-                token
-              )}`;
-              window.location.href = applicationUrl;
+                const applicationUrl = `${BASE_URL}/MAR/Appointment/ApplicantSelection?data=${encodeURIComponent(
+                  token
+                )}`;
+                window.location.href = applicationUrl;
+ }else{
+
+showAlert('There Is No Appointment Stored In Your DataBase')
+
+ }
+          
 
         }, ["#ff9999", "#ff6666"], 460);
         document.body.appendChild(RecoverTheApp);
+
+  var GoToTheLastCalendar = createButton("Go To The Last Calendar", function() {
+
+           
+    GoToTheLastCalendar.style.background = "linear-gradient(to bottom, #99ff99, #66ff66)"; // Change to green
+            setTimeout(function(){
+                GoToTheLastCalendar.style.background = "linear-gradient(to bottom, #ff9999, #ff6666)";
+            },500)
+
+            let token = localStorage.CalendarToken;
+            if(token !== ''){
+                const BASE_URL = "https://www.blsspainmorocco.net";
+                const SlotSelectionUrl = `${BASE_URL}/MAR/Appointment/SlotSelection?data=${encodeURIComponent(
+                  token
+                )}`;
+                window.location.href = SlotSelectionUrl;
+ }else{
+    
+showAlert('The Last Calendar Session Has Been Expired')
+
+ }
+          
+
+        }, ["#ff9999", "#ff6666"], 510);
+        document.body.appendChild(GoToTheLastCalendar);
 
 
         localStorage.StartButtonText = localStorage.StartButtonText || 'Start';
@@ -611,7 +643,7 @@ document.body.appendChild(catButton);
 
           }
         
-        }, ["#ff9999", "#ff6666"], 510);
+        }, ["#ff9999", "#ff6666"], 560);
         document.body.appendChild(StartButton);
 
 if(StartButton.textContent == 'Start'){
@@ -679,7 +711,7 @@ showAlert('The Previous Appointment Has Been Canceled')
 
 CancelThePreviousAppointement();
 
- }, ["#ff9999", "#ff6666"], 560);
+ }, ["#ff9999", "#ff6666"], 610);
  document.body.appendChild(CancelTheApp);
 
 
@@ -703,7 +735,7 @@ CancelThePreviousAppointement();
             return false;
         }
             ForbesLogOut();
-        }, ["#ff9999", "#ff6666"], 610);
+        }, ["#ff9999", "#ff6666"], 660);
         document.body.appendChild(LogOutButton);
 
 
