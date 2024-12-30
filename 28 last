@@ -583,7 +583,7 @@ document.body.appendChild(catButton);
             },500)
 
             const token = localStorage.LastAppointmentToken;
-            if(token !== ''){
+            if(token && token !== ''){
                 const BASE_URL = "https://www.blsspainmorocco.net";
             
                 const applicationUrl = `${BASE_URL}/MAR/Appointment/ApplicantSelection?data=${encodeURIComponent(
@@ -609,7 +609,7 @@ showAlert('There Is No Appointment Stored In Your DataBase')
             },500)
 
             let token = localStorage.CalendarToken;
-            if(token !== ''){
+            if(token && token !== ''){
                 const BASE_URL = "https://www.blsspainmorocco.net";
                 const SlotSelectionUrl = `${BASE_URL}/MAR/Appointment/SlotSelection?data=${encodeURIComponent(
                   token
